@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>杭州浩维管理平台</title>
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <script type="text/javascript" src="layui/layui.all.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+<!--    <script type="text/javascript" src="js/inf.js"></script>-->
+    <script type="text/javascript" src="js/polling.js"></script>
+    <script src="../js/week/treeView.js"></script>
+    <script src="../hopetree/tree.js"></script>
+    <script src="../hopetree/hope-tree.js"></script>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/Inform.css" >
+
+    <link href="../css/logo.css" rel="stylesheet"/>
+    <style>
+        .site-doc-icon li .layui-anim {
+            width: 150px;
+            height: 150px;
+            line-height: 150px;
+            margin: 0 auto 10px;
+            text-align: center;
+            /*background-color: #009688;*/
+            background-color: #44ACFF;
+
+            cursor: pointer;
+            color: #fff;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<style>
+    #banner-2{
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        outline: 0;
+        -webkit-overflow-scrolling: touch;
+        filter: alpha(opacity=20);
+        background-color: rgba(0,0,0,0.5);
+        display: none;
+    }
+    #white_content1-labor-2 {
+        display: none;
+        position: absolute;
+        border-radius: 4px;
+        top: 300px;
+        left: 550px;
+        width: 800px;
+        height: 580px;
+        background: #FFFFFF;
+        box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);
+        z-index: 1002;
+        /*overflow: none;*/
+    }
+    th .layui-table-cell{
+        text-align: center;
+    }
+    th .layui-table-cell{
+        text-align: center;
+    }
+</style>
+<body leftmargin=0 topmargin=0 width=100% height=100%>
+<div id="top">
+
+    <div id="nav">
+        <img id="logo" src="img/logo.png" width="64px" height="64px"/>
+        <span id="text">杭州浩维管理平台</span>
+
+        <ul>
+            <li><a href="/logout" title="注销账户" target="_self">注销</a></li>
+            <li><a href="Course" title="我的课程" target="_self">我的课程</a></li>
+            <li><a href="/HomeController/home" title="日志和周报" target="_self">日志和周报</a></li>
+            <li id='li6'><a href="/pollingSystem" target="_self" style="color: #3D96D6">运行引导</a></li>
+            <li id='li5'><a href="/Attendance" target="_self">考勤系统</a></li>
+            <li id='li4'><a href="/Employeemanage" target="_self">员工管理</a></li>
+            <li id='li3'><a href="/exammanage" target="_self">考试管理</a></li>
+            <li id='li1'><a href="/exercisemanage" target="_self" >题库管理</a></li>
+            <li id='li2'><a href="/Inform" target="_self">通知管理</a></li>
+            <li><a href="/index" target="_self">首页</a></li>
+        </ul>
+    </div>
+</div>
+<div id="polling">
+    <ul class="site-doc-icon site-doc-anim" style="position:relative;top: 50px;">
+        <li>
+            <div class="layui-anim layui-anim-up" id="work" style="float: left;margin-left:700px;margin-right: 220px;" onclick="pollingWork()">工作</div>
+        </li>
+        <li>
+            <div class="layui-anim layui-anim-up" id="create" style="float: left;display: none" onclick="pollingCreate()">创建</div>
+        </li>
+    </ul>
+</div>
+<div id="pollingCreate" style="display: none">
+    <ul class="site-doc-icon site-doc-anim" style="position:relative;top: 50px;">
+        <li>
+            <div class="layui-anim layui-anim-fadein" id="abnormal" style="float: left;margin-left:460px;margin-right: 150px;" onclick="window.location.href='../ScrDailyController/WfgdDailyP'">运行异常记录</div>
+        </li>
+        <li>
+            <div class="layui-anim layui-anim-fadein" id="normal" style="float: left;margin-right: 150px;" onclick="window.location.href='../ScrDailyController/ScrDailys2'">运行日常记录</div>
+        </li>
+        <li>
+            <div class="layui-anim layui-anim-fadein" id="pollingRequire" style="float: left;margin-right: 150px;">运行巡检要求</div>
+        </li>
+        <li>
+            <div class="layui-anim layui-anim-fadein" id="pollingDetails" style="float: left">运行巡检内容</div>
+        </li>
+    </ul>
+</div>
+<div>
+    <button id="returnPButton" type="button" class="layui-btn layui-btn-lg" style="position:absolute;top: 400px;left: 1600px;display: none;" onclick="window.location.href='/pollingSystem'">返回</button>
+</div>
+<div id="pollingWork" style="display: none">
+    <ul class="site-doc-icon site-doc-anim" style="position:relative;top: 50px;">
+        <li>
+            <div class="layui-anim layui-anim-fadein" id="abnormalSearch" style="float: left;margin-left:500px;margin-right: 235px;">运行异常查询</div>
+        </li>
+        <li>
+            <div class="layui-anim layui-anim-fadein" id="normalSearch" style="float: left;margin-right: 235px;">运行日常查询</div>
+        </li>
+        <li>
+            <div class="layui-anim layui-anim-fadein" id="pollingfact" style="float: left">运行巡检工作</div>
+        </li>
+    </ul>
+</div>
+<!--<div>-->
+<!--    <button onclick="test()">测试</button>-->
+<!--</div>-->
+<script>
+    function test(){
+
+    }
+</script>
+<script>
+    getPollingRole();
+</script>
+</body>
+<!--<script type="text/javascript" src="js/inf.js"></script>-->
+</html>
+
+

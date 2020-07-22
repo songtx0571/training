@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hope.mapper.Usersmapper" >
+    <insert id="insert"  parameterType="com.hope.domain.Users">
+        insert ignore into users (UserName,Name,Password,Permissions) value (#{obj.UserName},#{obj.Name},#{obj.Password},#{obj.Permissions})
+    </insert>
+    <delete id="delete" >
+        delete from users where Id=#{obj.Id}
+    </delete>
+
+    <update id="update" parameterType="com.hope.domain.Users">
+        update users set UserName=#{obj.UserName},Name=#{obj.Name}
+        <where>
+            Id=#{obj.Id}
+        </where>
+    </update>
+    <select id="findById">
+        select * from users where Id=#{param1}
+    </select>
+    <select id="findUserByName" parameterType="java.lang.String" resultType="com.hope.domain.Users">
+        select * from users where Name=#{Name}
+    </select>
+    <select id="getName" parameterType="com.hope.domain.Users">
+        select a.Name from users a order by a.Name desc
+    </select>
+    <select parameterType="int" id="selPermission" resultType="int">
+        select p.id from users u
+          left join role r on r.id=u.roleId
+          left join rolePermission rp on rp.roleId=r.id
+          left join permission p on p.id=rp.permissionId
+        where u.id=#{id} and (p.id=68 or p.id=69)
+        limit 0,1
+    </select>
+
+	<select id="findStateByUserName" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT state FROM employee WHERE UPPER(UserName) = UPPER(#{UserName})
+	</select>
+
+    <select id="login" resultType="java.lang.String" parameterType="java.lang.String">
+    select Name from users where UserName=#{param1} and Password=#{param2}
+    </select>
+
+    <update id="changepassword"  parameterType="java.lang.String">
+        update users set Password=#{param1} where Username=#{param2} and Password=#{param3}
+    </update>
+    <select id="loginadmin" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select permissions from users where UserName=#{param1} and Password=#{param2}
+    </select>
+
+    <select id="findByID" resultType="com.hope.domain.Users" parameterType="java.lang.String">
+        select * from users where UPPER(UserName)=UPPER(#{param1}) and Password=#{param2}
+    </select>
+
+    <select id="getProjectIdS" resultType="com.hope.domain.Users" parameterType="java.lang.String">
+        select a.Name,a.projectId from users a where UPPER(UserName)=UPPER(#{param1})
+    </select>
+
+    <select id="getNameByProjectId" resultType="com.hope.domain.Users" parameterType="java.lang.Integer">
+        SELECT * FROM
+(
+SELECT a.Name,a.UserName,a.Department AS projectId FROM employee a
+)b
+WHERE b.projectId=#{param1}
+    </select>
+
+
+
+    <select id="findRand" resultType="com.hope.domain.Questionbank" parameterType="java.lang.String">
+        select * from questionbank where CourseID=#{param1} and ChapterID=#{param2} order by rand() limit 10
+    </select>
+
+    <update id="updatescore"  parameterType="java.lang.String">
+       update learningsituation set TestScore=#{param1} Where UPPER(UserName)=UPPER(#{param2})
+    </update>
+
+    <select id="findQueById" resultType="com.hope.domain.Questionbank" parameterType="java.lang.String">
+      select * from questionbank where QuestionID LIKE #{param1} order by QuestionID
+    </select>
+
+    <select id="showQ" resultType="com.hope.domain.Questionbank" parameterType="java.util.Map">
+      select * from questionbank where PoisionA=#{PoisionA} and PoisionB1=#{PoisionB1} and ChapterID=#{ChapterID}
+    </select>
+
+    <select id="showByExam" resultType="com.hope.domain.Questionbank" parameterType="java.util.Map">
+      select * from questionbank d join (SELECT DISTINCT questionId FROM examinationRecord a WHERE a.userName=#{param1} AND a.cycle=#{param2} AND a.week=#{param3} AND a.times=#{param4}) b on d.QuestionId=b.questionId
+    </select>
+
+    <update id="updatePeriod">
+       update learningsituation set ActualPeriod=ActualPeriod+#{param1} where UPPER(UserName)=UPPER(#{param2})
+    </update>
+
+    <select id="findbyUsr" resultType="com.hope.domain.Situation" parameterType="java.lang.String">
+        select ActualPeriod, ActualCredit,TestScore from learningsituation where UPPER(Username)=UPPER(#{param1})
+    </select>
+
+    <select id="findUserNameByName" resultType="com.hope.domain.Users" parameterType="java.lang.String">
+        select * from users a where a.Name=#{param1}
+   </select>
+
+
+
+    <select id="findbypoision" resultType="com.hope.domain.Poision" parameterType="java.lang.String">
+        select PoisionB from Poision where PoisionA=#{param1}
+    </select>
+
+    <select id="findIdByUserName" resultType="java.lang.Integer" >
+        select Id from employee where UPPER(UserName)=UPPER(#{param1})
+    </select>
+
+	<select id="findAchievement" resultType="com.hope.domain.Achievement">
+		select id,UPPER(userName) userName,week,result1,result2,result3,result4,cycle,times 
+		from AchievementRecord where UPPER(userName) = UPPER(#{userName}) and week = #{week} and cycle = #{cycle}
+	</select>
+	
+	<select id="findAchievementsByUserName" resultType="com.hope.domain.Achievement">
+		select id,UPPER(userName) userName,week,result1,result2,result3,result4,cycle,times 
+		from AchievementRecord where UPPER(userName) = UPPER(#{userName}) and cycle = #{cycle}
+	</select>
+	
+	<select id="findAchievementsByUserName1" resultType="com.hope.domain.Achievement">
+		SELECT a.id,UPPER(a.userName) userName ,a.week,a.result1,a.result2,a.result3,a.result4,a.cycle,a.times 
+		FROM AchievementRecord a
+		JOIN employee b ON UPPER(a.userName) = UPPER(b.userName)
+		WHERE b.id = #{behavior.employeeId} AND a.cycle = #{behavior.cycle}
+	</select>
+	
+	<insert id="addAchievement">
+		insert ignore AchievementRecord(userName,week,result1,cycle,times)
+		value(#{userName},#{week},#{TestScore},#{cycle},1)
+	</insert>
+
+	<update id="updAchievement">
+		update AchievementRecord set 
+		<if test="times==1">
+			result2 = #{TestScore}, times = #{times}+1
+		</if>
+		<if test="times==2">
+			result3 = #{TestScore}, times = #{times}+1
+		</if>
+		<if test="times==3">
+			result4 = #{TestScore}, times = #{times}+1
+		</if>
+		where id = #{id}
+	</update>
+	
+	<select id='findAchievementsByCycle' resultType="com.hope.domain.Achievement">
+		select id,UPPER(userName) userName,week,result1,result2,result3,result4,cycle,times 
+		from AchievementRecord where cycle = #{cycle}
+	</select>
+	
+	<select id='findAchievementRecords' resultType="com.hope.domain.AchievementRecord">
+		SELECT UserName userName,`Name` `name` FROM employee a
+		LEFT JOIN department b ON a.department = b.id WHERE b.type != 0
+		ORDER BY UserName 
+	</select>
+	
+	<select id="getUserByUserName" resultType="com.hope.domain.Users">
+		SELECT Id,UPPER(userName) userName,`name`,projectId,roleId FROM users WHERE UPPER(userName) = UPPER(#{userName})
+	</select>
+	
+	<select id="getNameByUserName" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT `name` FROM users WHERE UPPER(userName) = UPPER(#{userName})
+	</select>
+
+    <insert id="updateReadStatus">
+        insert ignore into user_inform(userName,informId,rdStatus) values (#{userName,jdbcType=VARCHAR},#{informId,jdbcType=VARCHAR},#{rdStatus,jdbcType=VARCHAR});
+    </insert>
+
+    <select id="selSeen" parameterType="java.lang.String" resultType="java.util.HashMap" >
+        select distinct uf.userName userName from user_inform uf where uf.informId=#{informId}
+    </select>
+
+    <select id="selSeenUser" parameterType="java.lang.String" resultType="java.lang.String" >
+        select Name from users where userName like CONCAT('%',#{userName},'%')
+    </select>
+</mapper>

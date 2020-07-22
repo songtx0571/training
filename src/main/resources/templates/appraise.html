@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/uinf.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+    <script type="text/javascript" src="js/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+    <style>
+        .buttonx {
+            display: inline-block;
+            background: #44ACFF;
+            border: 1px solid #44ACFF;
+            border-radius: .3em;
+            color: white;
+            width: 80px;
+            height: 32px;
+            font-size: 16px;
+            outline: none;
+            margin-top: 43px ;
+            line-height:32px;
+            cursor: pointer;
+        }
+        .buttonx:hover{
+            background-color:#9B9B9B;
+            border-color: #9B9B9B;
+        }
+        .buttonx:active {
+            background-color: #E27635;
+            border-color: #E27635;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-content tab-content-show" style="text-align: center">
+        <input  hidden type="text" th:value="${employeeId}" id="yemployeeId">
+        <br>请选择考核内容</br><br>
+        <input type="button" class="buttonx" value="员工考核" style="width:134px ;margin-top: 10px;margin-right: 10px"
+               onclick="parent.layer.closeAll();parent.uinf.showUserNameList()" />
+        <input type="button" class="buttonx" style="width:134px ;margin-top: 10px" value="个人考核" onclick="parent.uinf.selectBeCycles('scycleSelect');parent.uinf.selectCycle('sSelect');parent.document.getElementById('appraiseself').style.display='block';
+                           parent.layer.closeAll();"/>
+    </div>
+</body>
+</html>
+
+

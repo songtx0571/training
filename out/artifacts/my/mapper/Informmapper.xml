@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hope.mapper.Informmapper" >
+    <select id="findBy" resultType="com.hope.domain.Inform">
+
+select * from (
+         select distinct
+         a.id,a.Time,a.Content,a.Title,a.Name,a.filedir,IFNULL(a.type1,'0') AS type1,IFNULL(a.type2,'0') AS type2,
+        (
+        CASE
+        WHEN a.type1=1 AND a.type2=1 THEN '嘉爱斯运维'
+        WHEN a.type1=1 AND a.type2=2 THEN '泰爱斯运维'
+        WHEN a.type1=1 AND a.type2=3 THEN '浦江运维'
+        WHEN a.type1=1 AND a.type2=4 THEN '临江运维'
+        WHEN a.type1=2 AND a.type2=1 THEN '公司制度'
+        WHEN a.type1=2 AND a.type2=2 THEN '运维规程'
+        WHEN a.type1=2 AND a.type2=3 THEN '公司制度+运维规程'
+        END
+        )
+        AS inftype,
+         d.userName,d.informId,IFNULL(d.rdStatus,'0') AS rdStatus
+         from inform a
+
+
+
+         left join (select b.userName,b.informId,b.rdStatus from user_inform b where b.userName=#{param2}) d
+         on a.id=d.informId ) s
+         where (s.type1="0" OR s.type1="2" OR (s.type1="1" AND INSTR(#{param3},s.type2)))
+
+        <if test="param1!=null and param1!=''">
+            and
+            (s.Title LIKE CONCAT('%',#{dim},'%')
+            or s.Content like CONCAT('%',#{dim},'%')
+            or s.inftype like concat('%',#{dim},'%')
+            )
+
+        </if>
+
+
+         order by s.Time DESC,s.id DESC
+
+
+    </select>
+
+
+<!--    select * from ( (select * from inform a-->
+
+<!--    <if test="param1!=null and param1!=''">-->
+<!--        where-->
+<!--        a.title LIKE CONCAT('%',#{param1},'%')-->
+<!--        or a.content like CONCAT('%',#{param1},'%')-->
+<!--    </if>-->
+<!--    ) b left join (select c.userName,c.informId,ifnull(c.RDstatus,'未读') Rdstatus from user_inform c where c.userName=#{obj.UserName}) d on b.id=d.informId ) order by b.Time DESC,b.id DESC-->
+
+
+<!--        select * from inform -->
+
+<!--    <if test="param1!=null and param1!=''">-->
+<!--        where-->
+<!--        title LIKE CONCAT('%',#{param1},'%')-->
+<!--        or content like CONCAT('%',#{param1},'%')-->
+<!--    </if>-->
+<!--    order by Time DESC,id DESC-->
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from inform
+    </select>
+
+    <select id="findAll" resultType="com.hope.domain.Inform">
+        select distinct * from inform a left join (select b.userName,b.informId,ifnull(b.rdStatus,'未读') rdStatus from user_inform b where b.userName=#{userName}) d on a.id=d.informId  order by a.Time DESC,a.id DESC
+    </select>
+
+    <select id="findById" resultType="com.hope.domain.Inform">
+        select distinct * from inform where id=#{param1}
+    </select>
+
+    <select id="findReadStatus" resultType="com.hope.domain.ReadStatus">
+        select ifnull(user_inform.rdStatus,'未读') from user_inform where userName=#{obj.UserName},informId=#{obj.id}
+    </select>
+
+    <delete id="delete" >
+        delete from inform where id=#{obj.id}
+    </delete>
+
+    <insert id="insert" >
+        insert ignore into inform (Title,Content,Type1,Type2,Time,Name,filedir) values (#{obj.Title},#{obj.Content},#{obj.Type1},#{obj.Type2},#{obj.Time},#{obj.Name},#{obj.filedir})
+    </insert>
+
+    <update id="update" >
+        update inform set Title=#{obj.Title},Type1=#{obj.type1},Type2=#{obj.type2},Content=#{obj.Content},Time=#{obj.Time},Name=#{obj.Name},filedir=#{obj.filedir} where Id=#{obj.id}
+    </update>
+
+<!--    <update id="updateReadStatus">-->
+<!--        update user_inform set userName=#{obj.UserName} ,informId=#{obj.id},rdStatus='已读'-->
+<!--    </update>-->
+</mapper>

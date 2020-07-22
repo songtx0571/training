@@ -1,0 +1,407 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>浩维培训</title>
+<style>
+.button {
+	display: inline-block;
+	background: #44ACFF;
+	border: 1px solid #44ACFF;
+	border-radius: .3em;
+	color: white;
+	width: 70px;
+	height: 28px;
+	font-size: 14px;
+	outline: none;
+	cursor: pointer;
+}
+
+.button:active {
+	background-color: #E27635;
+	border-color: #E27635;
+}
+
+a, ul, li, div {
+	padding: 0;
+	margin: 0;
+}
+
+#logo1 {
+	width: 40%;
+	height: 80px;
+	float: left;
+	background: url("img/遮罩.png");
+	border-bottom: 1px #979797 solid;
+}
+
+#logo {
+	margin-left: 40px;
+	margin-top: 9px;
+	margin-bottom: 7px;
+	float: left;
+}
+
+#top {
+	width: 100%;
+	height: auto;
+	margin: 0 auto;
+	color: #F5F4F5;
+}
+
+#nav {
+	width: 60%;
+	height: 80px;
+	float: right;
+	background: url("img/遮罩.png");
+	border-bottom: 1px #979797 solid;
+}
+
+#line {
+	width: 100%;
+	height: 1px;
+	background: #979797;
+}
+
+#text {
+	font-family: STHeitiSC-Medium;
+	font-size: 24px;
+	color: #4A4A4A;
+	line-height: 80px;
+	margin-left: 13px;
+}
+
+a {
+	text-decoration: none;
+	display: block;
+}
+
+ul li {
+	list-style: none;
+}
+
+#nav>ul>li {
+	float: right;
+	margin-left: 20px;
+	line-height: 80px;
+	margin-right: 64px
+}
+
+#nav>ul>li>a {
+	color: #FFF;
+	font-weight: 900px;
+	font-size: 16px;
+	color: #4A4A4A;
+	text-align: left;
+}
+/*******===================导航====================************/
+#centre {
+	margin: 0 auto;
+	width: 1260px;
+	height: 1000px;
+	overflow: hidden
+}
+
+#centreLeft {
+	float: left;
+	width: 200px;
+	height: 888px;
+	margin-top: 68px;
+	border-radius: 4px;
+	border: 1px #979797 solid;
+}
+
+#centreRight {
+	float: right;
+	width: 1050px;
+	height: 888px;
+	border-radius: 4px;
+	margin-top: 78px;
+	border: 1px #979797 solid;
+}
+
+#content {
+	width: 100%;
+	height: 654px;
+	overflow: auto;
+}
+
+#title {
+	width: 930px;
+	height: auto;
+	font-size: 16px;
+	margin-left: 40px;
+	margin-top: 9px;
+}
+
+#video {
+	width: 930px;
+	height: 26px;
+	margin-top: 14px;
+}
+
+#logo2 {
+	float: left;
+}
+
+#Learncontent {
+	width: 930px;
+	height: auto;
+	font-size: 12px;
+	line-height: 18px;
+	color: #4A4A4A;
+	text-align: left;
+}
+
+#div1 {
+	width: 100%;
+	height: auto;
+	display: none;
+}
+
+#div2 {
+	width: 100%;
+	height: auto;
+	display: none;
+}
+
+#div3 {
+	width: 100%;
+	height: auto;
+	display: none;
+}
+
+#B1 {
+	cursor: pointer;
+}
+
+#B2 {
+	cursor: pointer;
+}
+
+#B3 {
+	cursor: pointer;
+}
+
+#B4 {
+	cursor: pointer;
+	flaot: left;
+	width: 16px;
+	height: 16px;
+}
+
+.B5 {
+	cursor: pointer;
+	flaot: left;
+	width: 16px;
+	height: 16px;
+	margin-top: 10px
+}
+
+#T1 {
+	font-size: 14px;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.T2 {
+	font-size: 14px;
+	width: 100%;
+	margin-top: 10px;
+	border-top: 1px #F5A623 dashed;
+}
+
+#subT1 {
+	width: 160px;
+	font-size: 10px;
+	margin-left: 30px;
+	line-height: 25px;
+	display: none;
+}
+
+#subT1>a {
+	color: #4A4A4A;
+}
+
+#subT2 {
+	width: 160px;
+	font-size: 10px;
+	margin-left: 30px;
+	line-height: 25px;
+	display: none;
+}
+
+#subT2>a {
+	color: #4A4A4A;
+}
+
+.zhangjie {
+	float: right;
+	margin-right: 60px
+}
+/***********==============内容===================*******/
+</style>
+<script type="text/javascript">
+	function test(obj)
+	{
+		var div1 = document.getElementById("div1");
+		if (div1.style.display == "block")
+		{
+			div1.style.display = "none";
+			obj.src = "img/open icon.png";
+		} else
+		{
+			div1.style.display = "block";
+			obj.src = "img/close icon.png";
+		}
+	}
+</script>
+<script type="text/javascript">
+	function test1(obj)
+	{
+		var div1 = document.getElementById("div2");
+		if (div1.style.display == "block")
+		{
+			div1.style.display = "none";
+			obj.src = "img/open icon.png";
+		} else
+		{
+			div1.style.display = "block";
+			obj.src = "img/close icon.png";
+		}
+	}
+</script>
+<script type="text/javascript">
+	function test2(obj)
+	{
+		var div1 = document.getElementById("div3");
+		if (div1.style.display == "block")
+		{
+			div1.style.display = "none";
+			obj.src = "img/open icon.png";
+		} else
+		{
+			div1.style.display = "block";
+			obj.src = "img/close icon.png";
+		}
+	}
+</script>
+<script>
+	function zhankai()
+	{
+		var div1 = document.getElementById("div1");
+		var div2 = document.getElementById("div2");
+		var div3 = document.getElementById("div3");
+		var b1 = document.getElementById("B1");
+		var b2 = document.getElementById("B2");
+		var b3 = document.getElementById("B3");
+		div1.style.display = "block";
+		div2.style.display = "block";
+		div3.style.display = "block";
+		b1.src = "img/close icon.png";
+		b2.src = "img/close icon.png";
+		b3.src = "img/close icon.png";
+	}
+</script>
+<script>
+	function shousuo()
+	{
+		var div1 = document.getElementById("div1");
+		var div2 = document.getElementById("div2");
+		var div3 = document.getElementById("div3");
+		var b1 = document.getElementById("B1");
+		var b2 = document.getElementById("B2");
+		var b3 = document.getElementById("B3");
+		div1.style.display = "none";
+		div2.style.display = "none";
+		div3.style.display = "none";
+		b1.src = "img/open icon.png";
+		b2.src = "img/open icon.png";
+		b3.src = "img/open icon.png";
+	}
+</script>
+<script type="text/javascript">
+	function test3(obj)
+	{
+		var div1 = document.getElementById("subT1");
+		if (div1.style.display == "block")
+		{
+			div1.style.display = "none";
+			obj.src = "img/展开.png";
+		} else
+		{
+			div1.style.display = "block";
+			obj.src = "img/收起.png";
+		}
+	}
+</script>
+<script type="text/javascript">
+	function test4(obj)
+	{
+		var div1 = document.getElementById("subT2");
+		if (div1.style.display == "block")
+		{
+			div1.style.display = "none";
+			obj.src = "img/展开.png";
+		} else
+		{
+			div1.style.display = "block";
+			obj.src = "img/收起.png";
+		}
+	}
+</script>
+</head>
+<body leftmargin=0 topmargin=0 width=100% height=100%>
+	<div id="top">
+		<div id="logo1">
+			<img id="logo" src="img/logo.png" width="64px" height="64px" /> <a
+				id="text">浙江浩维培训网</a>
+		</div>
+		<div id="nav">
+			<ul>
+				<li><a href="/logout" title="注销账户" target="_self">注销</a></li>
+				<li><a href="Course" title="我的课程" target="_self">我的课程</a></li>
+				<li><a href="index" title="首页" target="_self">我的首页</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="line"></div>
+	<!--------头部------------>
+	<div id="centre">
+		<div id="centreLeft">
+			<div id="T1">
+				&nbsp&nbsp<img src="img/展开.png" onclick="test3(this)" id="B4" />
+				<div class="zhangjie">
+					<a href="Chapter1" target="content" style="color: #4A4A4A;">第一章
+						脱硝系统</a>
+				</div>
+			</div>
+			<div id="subT1">
+				<a>第一节 脱硝系统系统概述</a> <a>第二节 脱硝工艺简介</a> <a>第三节 工艺指标一览</a> <a>第四节
+					原始启动准备工作</a> <a>第五节 脱硝系统异常情况及处理方法</a>
+			</div>
+			<div id="T2" class="T2">
+				&nbsp&nbsp<img src="img/展开.png" onclick="test4(this)" id="B5"
+					class="B5" />
+				<div class="zhangjie" style="margin-top: 10px">
+					<a href="Chapter2" target="content" style="color: #4A4A4A;">第二章
+						脱硫系统</a>
+				</div>
+			</div>
+			<div id="subT2">
+				<a>第一节 工艺简介反应原理</a> <a>第二节 系统描述</a> <a>第三节 脱硫各系统起停</a> <a>第四节
+					FGD系统启动</a> <a>第五节 脱硫系统的停用</a> <a>第六节 吸收塔密度测量</a>
+			</div>
+			<div id="T3" class="T2">
+				<div class="zhangjie" style="margin-top:10px">
+					<a href="Chapter3" target="content" style="color: #4a4a4a;">脱硫技术问答</a>
+				</div>
+			</div>
+		</div>
+		<div id="centreRight">
+			<iframe width="1050" height="888" name="content" src="Chapter1"
+				frameborder="no"></iframe>
+		</div>
+	</div>
+</body>
+</html>

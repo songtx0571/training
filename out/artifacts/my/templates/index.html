@@ -1,0 +1,1486 @@
+﻿<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+		  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+		  integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+			integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+			crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="layui/css/layui.css" media="all">
+	<script type="text/javascript" src="layui/layui.all.js"></script>
+	<script src="layui/layui.js" charset="utf-8"></script>
+	<script src="js/em.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/uinf.js"></script>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta charset="utf-8">
+<title>杭州浩维管理平台</title>
+<style>
+	.layui-laypage .layui-laypage-curr .layui-laypage-em {
+
+		background-color: #44ACFF;
+	}
+input{
+	border: none;
+	background-color: white;
+	text-align: center;
+}
+tbody{
+	padding-left: 10px;
+}
+	.buttona{
+		color:#44ACFF ;
+	}
+
+	.table>tbody+tbody{
+		border-top:1px solid #ddd;
+	}
+
+	.table td{
+		height: 37px;
+
+	}
+
+	.table a{
+		display: inline;
+	}
+	.table>tbody>tr>td{
+		padding: 0;
+		line-height: 37px;
+	}
+.tab-div {
+	width: 100%;
+	position: relative; /*作为选项卡内容的定位*/
+}
+
+ul {
+	list-style: none;
+}
+
+
+.tab {
+	width: 100%;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	z-index: 2;
+}
+
+.tab li {
+	float: left;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border: 1px solid #44acff;
+	border-bottom: 0;
+	margin-left: 40px;
+	background: #44acff;
+	cursor: pointer;
+	border-radius: 4px;
+	color: #ffffff;
+}
+
+.tab-content {
+	width: 100%;
+	height: 300px;
+	/*position: absolute;*/
+	border-top: 1px solid #44acff;
+	text-align: center;
+	position:absolute;
+	left: 0;
+	margin-top:-1px;
+}
+
+.tab-content ul {
+	margin: 0;
+	padding: 10px;
+}
+
+.tab-content li {
+	padding: 10px;
+}
+
+
+
+.tab-content li a {
+	color: #000;
+	text-decoration: none;
+}
+
+td>a{
+	cursor:pointer;
+}
+
+	select {
+		appearance:none;
+		-moz-appearance:none;
+		-webkit-appearance:none;
+		background: url("img/down.png") no-repeat scroll right center transparent;
+		background-size: 14px 14px;
+		border: 0px;
+		
+		text-align-last: center;
+		width: 100px;
+	}
+	option{
+		text-align:center;
+		color: black;
+	}
+.tab-content li a:hover {
+	color: #e4393c;
+	text-decoration: underline;
+}
+
+.tab .tab-active {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+	color: #4a4a4a;
+}
+
+.tab-content-show {
+	display: block;
+}
+
+.tab-content-hide {
+	display: none;
+}
+
+	.white_content3 {
+		display: none;
+		position: absolute;
+		top: 20px;left: 20%;width: 60%;height: 820px;
+		background-color: white;
+		z-index: 1001;
+		overflow: auto;
+		border-radius: 4px;
+		box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);
+	}
+	.white_content4 {
+		display: none;
+		position: absolute;
+		top: 0px;width: 100vw;
+		height: 1250px!important;
+		background-color: white;
+		z-index: 1001;
+		overflow: auto;
+		border-radius: 4px;
+		box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);
+	}
+
+
+.itable2 {
+	width: 500px;
+	height: 200px;
+	margin: 20px auto;
+	border: 1px solid #DDD;
+}
+.itable2 td {
+	border: 1px solid #DDD;
+	width:50px;
+}
+
+#yeji input{
+	width: 100%;
+	border: none;
+	text-align: center;
+	background-color: #fff;
+}
+
+.itable {
+	margin: auto;
+	width: 340px;
+	height: 160px;
+	border: 1px solid #DDD;
+	border-radius: 4px;
+}
+
+.itable td {
+	border: 1px solid #DDD;
+	width: 150px;
+	font-size: 16px;
+	color:  #4A90E2;
+	height: 32px;
+	text-align: center;
+}
+
+.itable input {
+	border: none;
+	width: 190px; height: 100%;
+	font-size: 16px;
+	outline: none;
+	text-align: left;
+	padding-left: 20px;
+	background-color: white;
+	color: #333;
+}
+
+.button {
+	display: inline-block;
+	background: #44ACFF;
+	border: 1px solid #44ACFF;
+	border-radius: .3em;
+
+	color: white;
+	width: 80px;
+	height: 32px;
+	font-size: 16px;
+	outline: none;
+	cursor: pointer;
+}
+
+
+
+.button:active {
+	background-color: #E27635;
+	border-color: #E27635;
+}
+
+.button3 {
+	display: inline-block;
+	background: #9B9B9B;
+	border: 1px solid #9B9B9B;
+	border-radius: .3em;
+	color: white;
+	width: 80px;
+	height: 32px;
+	font-size: 14px;
+	outline: none;
+	cursor: pointer;
+}
+
+.button3:active {
+	background-color: #E27635;
+	border-color: #E27635;
+}
+
+#tab {
+	width: 100%;
+	height: 250px;
+}
+
+#tab ul {
+	list-style: none;
+	display:;
+	height: 30px;
+	line-height: 30px;
+	margin: 0 auto;
+	margin-left: 10px;
+	text-align: center;
+	border-bottom: 1px solid #44acff;
+}
+
+#tab ul li {
+	background: #FFF;
+	cursor: pointer;
+	float: left;
+	text-align: center;
+	background: #44ACFF;
+	list-style: none;
+	height: 29px;
+	line-height: 29px;
+	padding: 0px 30px;
+	border-bottom: 2px solid #FFF;
+	font-size: 18px;
+	font-family: "华文黑体";
+}
+
+#tab ul li.on {
+	border-bottom: 2px solid #FFF;
+	background: #FFF;
+}
+
+#tab div {
+	height: 400px;
+	width: 300px;
+	line-height: 24px;
+	border-top: none;
+	padding: 10px;
+}
+
+.hide {
+	display: none;
+}
+
+.button {
+	display: inline-block;
+	background: #44ACFF;
+	border: 1px solid #44ACFF;
+	border-radius: .3em;
+	color: white;
+	width: 100px;
+	height: 32px;
+	font-size: 16px;
+	line-height: 32px;
+	outline: none;
+	cursor: pointer;
+}
+
+
+.button:active {
+	background-color: #E27635;
+	border-color: #E27635;
+}
+
+.button1 {
+	display: inline-block;
+	background: #9B9B9B;
+	border: 1px solid #9B9B9B;
+	border-radius: .3em;
+	color: white;
+	width: 80px;
+	height: 32px;
+	font-size: 16px;
+	outline: none;
+	margin-top: 30px;
+	cursor: pointer;
+}
+
+.button1:active {
+	background-color: #E27635;
+	border-color: #E27635;
+}
+
+.buttonme1 {
+	display: inline-block;
+	background: white;
+	border: 1px solid #44ACFF;
+	border-top-left-radius: .3em ;
+	border-top-right-radius: .3em;
+	color: #4A4A4A;
+	width: 100px;
+	height: 32px;
+	font-size: 16px;
+	outline: none;
+	cursor: pointer;
+	margin-right: 10px;
+	border-bottom-color: white;
+	position:relative;
+	z-index:99;
+}
+.buttonme2 {
+	display: inline-block;
+	background:#44ACFF ;
+	border: 1px solid #44ACFF;
+	border-top-left-radius: .3em;
+	border-top-right-radius: .3em;
+	color: white;
+	width: 100px;
+	height: 32px;
+	font-size: 16px;
+	outline: none;
+	cursor: pointer;
+	margin-right: 10px;
+	position:relative;
+}
+
+
+.button2 {
+	display: inline-block;
+	background: #44ACFF;
+	border: 1px solid #44ACFF;
+	border-radius: .3em;
+	color: white;
+	width: 80px;
+	height: 32px;
+	font-size: 16px;
+	outline: none;
+	margin-top: 30px;
+	cursor: pointer;
+}
+
+.button2:active {
+	background-color: #E27635;
+	border-color: #E27635;
+}
+
+.uftable a:hover{
+	color: #44ACFF;
+}
+
+.white_content {
+	display: none;
+	position: absolute;
+	border-radius: 4px;
+	top: 40%;
+	left: 40%;
+	width: 330px;
+	height: 250px;
+	padding: 20px;
+	background: #FFFFFF;
+	box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);
+	z-index: 1002;
+	overflow: auto;
+}
+
+.white_content1 {
+	display: none;
+	position: absolute;
+	border-radius: 4px;
+	top: 300px;
+	left: 550px;
+	width: 800px;
+	height: 480px;
+	background: #FFFFFF;
+	box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);
+	z-index: 1002;
+	overflow: none;
+}
+.white_content1-labor {
+	display: none;
+	position: absolute;
+	border-radius: 4px;
+	top: 300px;
+	left: 550px;
+	width: 800px;
+	height: 580px;
+	background: #FFFFFF;
+	box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);
+	z-index: 1002;
+	overflow: none;
+}
+
+a, ul, li, div {
+	padding: 0;
+	margin: 0;
+}
+
+
+/*******===================头====================************/
+#centre {
+	margin: 0 auto;
+	width: 1200px;
+	height: 580px;
+}
+
+#centreLeft {
+	float: left;
+	width: 840px;
+	height: 560px;
+	margin-top: 22px;
+}
+
+#centreRight {
+	float: right;
+	width: 340px;
+	height: 560px;
+	border-radius: 4px;
+	margin-top: 22px;
+	border: 1px #979797 solid
+}
+
+#DA {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	font-family: STHeitiSC-Medium;
+	font-size: 16px;
+	color: #4A4A4A;
+	text-align: center;
+	background: #DFF3FC;
+	border-radius: 4px;
+}
+
+#photo {
+	width: 340px;
+	height: 200px
+}
+
+#button {
+	width: 340px;
+	height: 50px;
+	border-bottom: 1px dashed #F5A623;
+	line-height: 40px
+}
+
+#people {
+	width: 340px;
+	height: 30px;
+	font-family: STHeitiSC-Medium;
+	font-size: 16px;
+	color: #4A90E2;
+	text-align: center;
+	line-height: 30px;
+}
+
+#img1 {
+	margin-left: 80px;
+	margin-top: 20px;
+	width: 180px;
+	height: 180px;
+	border-radius: 200px;
+}
+
+#link {
+	width: 340px;
+	height: 66px;
+}
+
+#link>ul>li {
+	float: right;
+	margin-left: 24px;
+	line-height: 26px;
+	margin-right: 24px
+}
+
+#link>ul>li>a {
+	color: #FFF;
+	font-weight: 900px;
+	font-size: 16px;
+	color: #4A90E2;
+	text-align: left;
+	margin-top: 17px;
+}
+
+#introduction {
+	font-family: STHeitiSC-Medium;
+	font-size: 14px;
+	color: #4A4A4A;
+	text-align: left;
+	line-height: 20px;
+	width: 300px;
+	height: 140px;
+	margin: 0 auto;
+}
+
+#info {
+	font-family: STHeitiSC-Medium;
+	font-size: 16px;
+	color: #4A90E2;
+	text-align: center;
+	height: 32px;
+	line-height: 32px;
+}
+/***********==============内容===================*******/
+#bottom {
+	margin:  auto;
+	width: 1200px;
+	height: 388px;
+	border: 0;
+	color: #4A4A4A;
+	text-align: center;
+	border-radius: 4px;
+	margin-top: 10px;
+	table-layout: fixed ;font-family: STHeitiSC-Medium;
+}
+
+#bottom th{
+	text-align: center;
+}
+
+
+
+
+#link1>ul>li {
+	float: left;
+	line-height: 40px;
+}
+
+#link1>ul>li>a {
+	font-family: STHeitiSC-Medium;
+	font-size: 16px;
+	text-align: left;
+	margin-left: 46px;
+}
+
+#link2 {
+	width: 1000px;
+	height: auto;
+	float: left;
+}
+
+#link2>ul>li>a {
+	font-family: STHeitiSC-Medium;
+	font-size: 16px;
+	text-align: left;
+	margin-top: 25px;
+	margin-left: 30px;
+	color: #4A4A4A;
+}
+
+#time {
+	width: 200px;
+	height: auto;
+	float: right;
+}
+
+#time>a {
+	font-family: STHeitiSC-Medium;
+	font-size: 16px;
+	color: #9B9B9B;
+	text-align: left;
+	margin-top: 25px;
+	margin-right: 20px;
+}
+
+#more {
+	width: 1200px;
+	height: 40px
+}
+
+#more>ul>li {
+	float: right;
+	line-height: 40px;
+}
+
+#more>ul>li>a {
+	font-family: STHeitiSC-Medium;
+	font-size: 16px;
+	color: #D0021B;
+	margin-right: 20px;
+}
+.serchBtn{
+	width: 120px;height: 24px;margin-bottom: 10px;margin-top: 10px;margin-left: 10px;padding-left:10px;
+	line-height: 24px;
+	font-size: 16px;
+	color: #4A4A4A;
+	border-radius: 3px
+}
+	th .layui-table-cell{
+		text-align: center;
+	}
+	th .layui-table-cell{
+		text-align: center;
+	}
+/***********==============底部===================*******/
+#banner{
+ 	width: 100%;
+    height: 100%;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    outline: 0;
+    -webkit-overflow-scrolling: touch;
+	filter: alpha(opacity=20);  
+	background-color: rgba(0,0,0,0.5);
+	display: none;
+}
+#achievementRecord{
+	display:none;
+	position: absolute;
+    border-radius: 4px;
+    top: 40%;
+    left: 35%;
+    width: 600px;
+    height: 300px;
+    background: #FFFFFF;
+    box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);
+    z-index: 1002;
+}
+/*#achievementRecord-labor{*/
+/*	display:none;*/
+/*	position: absolute;*/
+/*    border-radius: 4px;*/
+/*    top: 40%;*/
+/*    left: 35%;*/
+/*    width: 600px;*/
+/*    height: 300px;*/
+/*    background: #FFFFFF;*/
+/*    box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);*/
+/*    z-index: 1002;*/
+/*}*/
+
+#achievementTime{    
+	background-image: url(/img/calendar.svg);
+	background-size: 24px 24px;
+	background-repeat: no-repeat;
+	background-position: 90% 50%;
+	text-align: left;
+	padding-left: 20px;
+	width:120px;
+}
+#achievementRecord table{
+	width: 100%;
+	height: 100%;
+}
+#achievementRecord table tr{
+	height: 50px;
+	border: 1px solid rgba(74, 144, 226, 0.80);
+	
+}
+#achievementRecord table tr th,#achievementRecord table tr td{
+	border: 1px solid rgba(74, 144, 226, 0.80);
+	text-align: center;
+	font-size: 16px;
+	line-height: 48px;
+	width:120px;
+}
+
+</style>
+
+<link href="../css/logo.css" rel="stylesheet"/>
+<script type="text/javascript">
+	function success()
+	{
+		window.alert("修改成功");
+	}
+	window.onload = function () {
+		uinf.ccc();
+		uinf.selectEm();
+	}
+</script>
+</head>
+
+<body leftmargin=0 topmargin=0>
+	<div id="top">
+		<div id="nav">
+			<img id="logo" src="img/logo.png" width="64px" height="64px" />
+			<span id="text">杭州浩维管理平台</span>
+			<ul>
+				<li><input type="button" value="注销" id="login" class="button" onclick="uinf.logout()"
+				style="height: 24px;width: 80px;font-size:16px;background-color: #F5F4F5;color: #4A4A4A;margin-top: 29px;line-height: 24px"></li>
+				<li><a href="Course" title="我的课程" target="_self">我的课程</a></li>
+				<li><a href="/HomeController/home" title="日志和周报" target="_self">日志和周报</a></li>
+				<li id='li6'><a href="/pollingSystem" target="_self">运行引导</a></li>
+				<li id='li5'><a href="/Attendance" target="_self">考勤系统</a></li>
+				<li id='li4'><a href="/Employeemanage" target="_self">员工管理</a></li>
+				<li id='li3'><a href="/exammanage" target="_self">考试管理</a></li>
+				<li id='li1'><a href="/exercisemanage" target="_self" >题库管理</a></li>
+				<li id='li2'><a href="/Inform" target="_self">通知管理</a></li>
+				<li><a href="index" title="首页" target="_self" style="color: #3D96D6 ">首页</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="line"></div>
+	<!--------头部------------>
+	<div id="centre">
+		<input id='UserName' type="hidden" th:value="${session.UserName}"/>
+		<input id='Name' type="hidden" th:value="${session.Name}"/>
+		<div id="centreLeft">
+			<img src="img/banner.png" width="840px" height="560px" />
+		</div>
+		<div id="centreRight">
+			<div id="DA">个人档案</div>
+			<div id="photo">
+				<img id="img1" src="img/timg.jpeg" />
+			</div>
+			<div id="people">
+				<a id="employeeName" th:text = "${session.Name}+'同学'"></a>
+			</div>
+			<div id="button" >
+				<input type="button" class="button" value="更改头像" style="margin-left: 45px;margin-right: 60px">
+				<button a href="javascript:void(0)"
+					onclick="document.getElementById('change').style.display='block'"
+					class="button">修改密码</button>
+			</div>
+			<div id="link">
+				<ul>
+					<li><a href="javascript:void(0)"
+						onclick="document.getElementById('information').style.display='block';uinf.selectEm()">个人信息</a>
+					</li>
+					<li><a onclick="uinf.additable();"  style="cursor: pointer;" title="考核" target="_blank">绩效考核</a></li>
+					<li><a onclick='showAchievementRecord()'  style="cursor: pointer;">成绩查询</a></li>
+					<li><a onclick='showLaborRecord()'  style="cursor: pointer;">工时查询</a></li>
+				</ul>
+			</div>
+			<div id="introduction">
+				<a th:text="'亲爱的' + ${session.Name}+'同学，您好:'"></a> <a id="position">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp现您已完成2.00学分，已完成3.00学时，继续加油吧～</a>
+			</div>
+			<div id="info">学分将于学习课程的第二天上午10点更新。</div>
+		</div>
+	</div>
+	<!--------中间------------->
+
+	<div id="bottom" >
+		<div style="text-align: left;padding-left: 20px; border:1px solid #e6e6e6">
+			搜索通知<input id="dim"  type="text" onkeyup="loodtable()"
+					   style="border: none;
+        				border: 1px solid #9B9B9B;"
+						class="serchBtn">
+
+<!--			<form class="layui-form" action="" style="width: 300px!important;float: right;">-->
+<!--				<div class="layui-form-item layui-input-block">-->
+<!--					<select id="informType2" name="informType2" lay-verify="informType2" style="display: none;width: 300px;">-->
+
+<!--					</select>-->
+<!--				</div>-->
+<!--			</form>-->
+<!--			<form class="layui-form" action="" style="float: right;">-->
+<!--				<div class="layui-form-item layui-input-block" style="width: 400px!important;">-->
+<!--					<label class="layui-form-label" style="width: 100px!important;">选择类型</label>-->
+<!--					<div class="layui-input-block" style="width: 300px!important;">-->
+<!--						<select id="informType1" name="informType1" lay-verify="informType1" style="width: 300px!important;">-->
+<!--							<option value="1">项目部通知</option>-->
+<!--							<option value="2">类型通知</option>-->
+<!--						</select>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</form>-->
+
+
+		</div>
+		<div><table class="layui-hide" id="test" lay-filter="demo">
+		</table></div>
+		<div id="demo2"></div>
+		<script type="text/html" id="zizeng">
+			{{d.LAY_TABLE_INDEX+1}}
+		</script>
+		<script type="text/html" id="barDemo">
+			<a class="layui-btn layui-btn-xs" lay-event="detail" style="background: #44ACFF">查看</a>
+<!--			<a class="layui-btn layui-btn-xs" lay-event="edit"   style="width: 34px;background: #44ACFF;padding: 0px;"></a>-->
+
+		</script>
+
+
+
+
+	</div>
+	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+	<!-----------底部---------------->
+	<div style="height: 40px"></div>
+	<div id="change" class="white_content">
+		<form action="changePage" name="change" method="post"
+			onClick="return check(this)"
+			style="font-size: 18px; text-align: center">
+			用户名：<input type="text" name="UserName" value="" id="UserName"
+				style="margin-top: 36px; border: 1px #E6E6E6 solid; border-radius: 4px; width: 180px; height: 24px; font-size: 16px"><br>
+			旧密码：<input type="password" name="password" value="" id="password"
+				style="margin-top: 18px; border: 1px #E6E6E6 solid; border-radius: 4px; width: 180px; height: 24px; font-size: 16px"><br>
+			新密码：<input type="password" name="Password" value="" id="Password"
+				style="margin-top: 18px; border: 1px #E6E6E6 solid; border-radius: 4px; width: 180px; height: 24px; font-size: 16px"><br>
+			<input type="button" value="取消" class="button1"
+				href="javascript:void(0)"
+				onclick="document.getElementById('change').style.display='none'">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<input type="submit" value="确认" onClick="success();" class="button2">
+		</form>
+	</div>
+	<div id="showinform" class="white_content1">
+		<div style="font-size: 18px; line-height: 58px;">
+			<a>&nbsp&nbsp&nbsp&nbsp详细内容</a>
+		</div>
+		<div class="tab-div">
+			<div class="tab-content tab-content-show">
+				<form action="informationPage" name="changePI" method="post" >
+					<table class="itable2" cellspacing="0" cellpadding="0" style="font-size: 20px;">
+						<tr>
+							<td>标题</td>
+							<td><input type="text" name="sTitle"  id="sTitle"
+								style="border: none; width: 200px; height: 20px; font-size: 16px; outline: none;"></td>
+						</tr>
+						<tr>
+							<td>时间</td>
+							<td><input type="text" name="sTime"  id="sTime"
+									   style="border: none; width: 200px; height: 20px; font-size: 16px; outline: none;"></a></td>
+						</tr>
+						<tr>
+							<td>内容</td>
+							<td><textarea name="sContent" id="sContent" cols="40"   rows="7"  style="resize:none" readonly></textarea></td>
+						</tr>
+					</table>
+				</form>
+				<input type="button" class="button3" value="关闭窗口"
+					onclick="document.getElementById('showinform').style.display='none'" />
+
+			</div>
+		</div>
+	</div>
+	<div id="information" class="white_content1" style="width:820px;height: 400px;">
+		<div style="font-size: 18px; line-height: 32px;">
+			<a style="margin: 20px auto;padding-left: 20px">基本信息</a>
+		</div>
+
+		<div id="tDiv" class="tab-div">
+			<div style="margin-left: 20px;" >
+				<input type="button" value="基本信息" class="buttonme1" id="buttonme1" >
+				<input type="button" value="扩展信息" class="buttonme2" id="buttonme2">
+			</div>
+			<div class="tab-content tab-content-show" >
+				<form  id="jibenxinxi" style="font-size: 16px;padding-left: 20px;margin-top: 41px;">
+					<table class="itable" cellspacing="0" >
+						<tr >
+							<input type="text" name="employeeId" id="employeeId" hidden>
+							<td>员工编号</td>
+							<td><input type="text" name="uUserName" id="uUserName" disabled="disabled"></td>
+
+						</tr>
+						<tr>
+							<td>姓名*</td>
+							<td><input type="text" name="uName" id="uName"></td>
+						</tr>
+						<tr>
+							<td>身份证号</td>
+							<td><input type="text" name="uIdnumber" onkeyup="this.value=this.value.toUpperCase()" id="uIdnumber"></td>
+						</tr>
+						<tr>
+							<td>工资卡号</td>
+							<td><input type="text" name="uCard" id="uCard"></td>
+						</tr>
+						<tr>
+							<td>联系方式</td>
+							<td><input type="text" name="uPhone" oninput="value=value.replace(/[^\d]/g,'')" id="uPhone"></td>
+						</tr>
+
+					</table>
+				</form>
+				<form   id="kuozhanxinxi" style="font-size: 16px;padding-left: 20px;margin-top: 41px;display: none">
+					<table class="itable" cellspacing="0" >
+						<tr>
+							<td>衣服尺寸</td>
+							<td><input type="text" name="uCloshe" id="uCloshe"></td>
+						</tr>
+						<tr>
+							<td>安全帽编号</td>
+							<td><input type="text" name="uHat" id="uHat"></td>
+						</tr>
+						<tr>
+							<td>学历</td>
+							<td><input type="text" name="uEducation" id="uEducation"></td>
+						</tr>
+						<tr>
+							<td>应急联系人</td>
+							<td><input type="text" name="uEmergency" id="uEmergency"></td>
+						</tr>
+						<tr>
+							<td>应急联系人电话</td>
+							<td><input type="text" name="uEmergencyTel" id="uEmergencyTel"></td>
+						</tr>
+					</table>
+				</form>
+				<input type="button" class="button3" value="取消" style="margin-top: 20px;width: 80px"
+					   onclick="document.getElementById('information').style.display='none'" />&nbsp&nbsp
+				<input type="button" class="button" value="确定" style="width: 80px" onclick="uinf.updateEm() "/>
+			</div>
+
+
+		</div>
+	</div>
+	<div id="appraise" class="white_content4" style="height: 930px">
+		<div style="font-size: 18px; line-height: 32px;">
+			<span><a style="margin: 20px auto;padding-left: 30px;">员工考核</a></span>
+			<span><a style="left:96%;top:20px;position: absolute;z-index: 1003;"><img src="img/close.png" height="18px" onclick="window.document.getElementById('appraise').style.display='none'"></a></span>
+			<span>
+				<select id="appraiseUserName"  onchange="setColor('appraiseUserName');uinf.findappraise();
+				this.size=1;" style="background-color:white;left:80%;top:20px;position: absolute;z-index: 1003;"  onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=1">
+					<option >请选择</option>
+				</select>
+			</span>
+		</div>
+
+		<div class="tab-div">
+			<div style="margin-left: 20px;" >
+				<input type="button" value="业绩考核" class="buttonme1" id="buttonAp1">
+				<input type="button" value="行为考核" class="buttonme2" id="buttonAp2">
+			</div>
+			<div class="tab-content tab-content-show" >
+				<form  id="yeji" style="font-size: 16px;padding-left: 20px;padding-right:20px;margin-top: 41px;">
+					<table class="table table-bordered" style="font-size: 14px;text-align: center">
+						<tr>
+							<td hidden><input  id="yemployeeId" name="yemployeeId" type="text"></td>
+							<td width="110px">姓名</td>
+							<td width="80px"><input id="yName" name="yName" disabled="disabled"></td>
+							<td width="90px">员工编号</td>
+							<td width="80px"><input id="yUserName" name="yUserName" disabled="disabled"></td>
+							<td width="100px">岗位名称</td>
+							<td><input id="yPost" name="yPost" disabled="disabled"></td>
+							<td width="100px">考核周期</td>
+							<td width="120px">
+								<select id="mySelect" onchange="emObj.findPeAccIndex();document.getElementById('updatePe').style.display = 'none';
+                       " style="background-color:white;z-index: 1003" >
+									<!--onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=1" this.size=1;-->
+									<option >请选择</option>
+								</select>
+							</td>
+							<td rowspan="2" style="vertical-align:middle" width="100px">考核分</td>
+							<td rowspan="2" width="75px" style="vertical-align:middle" >备注</td>
+							<td rowspan="2" width="75px" style="vertical-align:middle" >删除</td>
+							<td rowspan="2" width="75px" style="vertical-align:middle" >修改</td>
+						</tr>
+						<tr>
+							<td>序号</td>
+							<td colspan="3">工作任务</td>
+							<td colspan="3">考核标准</td>
+							<td>权重</td>
+						</tr>
+						<tbody id="peAcc">
+						</tbody>
+						<tfoot>
+						<tr>
+							<td><a onclick="addyejiTable()"><img height="24px" src="img/add.png"></a></td>
+							<td colspan="6">合计</td>
+							<td><input id="amount" name="amount" disabled="disabled"></td>
+							<td><input id="scoreamount" name="scoreamount" disabled="disabled"></td>
+							<td><input value="复制此标准" type="button" class="buttona" onclick="emObj.copyPeAcc()"></td>
+							<td><input  placeholder="填写周期" type="text" id="lastCycle"></td>
+						</tr>
+						<script>
+							layui.use('laydate', function(){
+								var laydate = layui.laydate;
+								//执行一个laydate实例
+								laydate.render({
+									elem: '#lastCycle' //指定元素
+									,type:'month'
+									,zIndex: 99999999
+									,trigger: 'click'
+								});
+							});
+						</script>
+						<tr id="updatePe" style="display: none">
+							<td>工作任务<input hidden id="uPeid" type="text"></td>
+							<td colspan="3"><input type="text" id="uworkTasks" ></td>
+							<td>考核标准</td>
+							<td colspan="2"><input type="text" id="uaccess"></td>
+							<td hidden><input type="text" id="ucycle" ></td>
+							<td>权重</td>
+							<td><input type="text" id="uweights"></td>
+							<td><input value="修改" class="buttona" type="button" onclick="emObj.updatePeAcc()"/></td>
+							<td><input value="取消" class="buttona" type="button"   onclick="document.getElementById('updatePe').style.display='none'" ></td>
+						</tr>
+						</tfoot>
+					</table>
+				</form>
+				<form id="xingwei" style="display: none;width: 95%;margin: auto;margin-top: 20px;">
+					<table class="table table-bordered" style="font-size: 14px;text-align: center">
+						<tr>
+							<td hidden><input type="text" id="xemployeeId" name="xemployeeId"></td>
+							<td width="150px">姓名</td>
+							<td colspan="2" width="215px"><input type="text" id="xName" name="xName" disabled="disabled" ></td>
+							<td >员工编号</td>
+							<td colspan="6"> <input type="text" id="xUserName" name="xUserName" disabled="disabled" ></td>
+							<td rowspan="3" width="130px" style="vertical-align: middle">考核分</td>
+						</tr>
+						<tr>
+							<td>岗位名称</td>
+							<td colspan="2"><input type="text" id="xPost" name="xPost" disabled="disabled" ></td>
+							<td width="167px">考核周期</td>
+							<td colspan="4" id="selectcycle" >
+								<select id="cycleSelect" onchange="emObj.selectBe()" style="width:95px;text-align: center">
+									<option>请选择</option>
+
+								</select>
+							</td>
+							<td  width="238px" id="addBeCycle" style="display: none"><input id="BeAddCycle" style="width: 80px" type="text" placeholder="添加周期">
+								<img height="24px" src="img/tick.png" onclick="uinf.BeAddCycle()">
+								<img onclick="window.document.getElementById('addBeCycle').style.display='none';
+                                    window.document.getElementById('selectcycle').style.display=''" height="24px" src="img/close.png">
+							</td>
+							<td  width="238px" id="updateBeCycle" style="display: none"><input id="BeUpdateCycle" style="width: 80px" type="text" placeholder="修改周期" onblur="this.placeholder='修改周期'" onfocus="this.placeholder=''">
+								<img height="24px" src="img/tick.png" onclick="emObj.BeUpdateCycle()">
+								<img onclick="window.document.getElementById('updateBeCycle').style.display='none';
+                                    window.document.getElementById('selectcycle').style.display=''" height="24px" src="img/close.png">
+							</td>
+							<script>
+								layui.use('laydate', function(){
+									var laydate = layui.laydate;
+
+									//执行一个laydate实例
+									laydate.render({
+										elem: '#BeAddCycle' //指定元素
+										,type:'month'
+										,zIndex: 99999999
+										,trigger: 'click'
+									});
+									laydate.render({
+										elem: '#BeUpdateCycle' //指定元素
+										,type:'month'
+										,zIndex: 99999999
+										,trigger: 'click'
+									});
+								});
+							</script>
+							<td width="40px" ><a   onclick="window.document.getElementById('addBeCycle').style.display='';
+                                window.document.getElementById('selectcycle').style.display='none';
+                                window.document.getElementById('updateBeCycle').style.display='none'"><img height="16px" src="img/add.png"></a></td>
+							<td width="40px"><a onclick="window.document.getElementById('updateBeCycle').style.display='';
+                                window.document.getElementById('selectcycle').style.display='none'
+                                window.document.getElementById('addBeCycle').style.display='none'"><img height="16px" src="img/update.png"></a></td>
+						</tr>
+						<tr>
+							<td>考核项目</td>
+							<td colspan="2" >考核分值</td>
+							<td colspan="7" >考核标准</td>
+						</tr>
+						<tr>
+							<td rowspan="5" style="vertical-align:middle">学习能力（50分）</td>
+							<td width="100px">10</td>
+							<td>分</td>
+							<td colspan="7">第一周考试成绩<input hidden id="BeId" type="text"></td>
+							<td><input id="week1" name="week1" oninput = "value=value.replace(/[^\d]/g,'')"
+									   onfocus="this.placeholder=''" onblur="this.placeholder='请输入'" placeholder="请输入"></td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td>分</td>
+							<td colspan="7">第二周考试成绩</td>
+							<td><input id="week2" name="week2" oninput = "value=value.replace(/[^\d]/g,'')"
+									   onfocus="this.placeholder=''" onblur="this.placeholder='请输入'" placeholder="请输入"></td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td>分</td>
+							<td colspan="7">第三周考试成绩</td>
+							<td><input id="week3" name="week3" oninput = "value=value.replace(/[^\d]/g,'')"
+									   onfocus="this.placeholder=''" onblur="this.placeholder='请输入'" placeholder="请输入"></td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td>分</td>
+							<td colspan="7">第四周考试成绩</td>
+							<td><input id="week4" name="week4" oninput = "value=value.replace(/[^\d]/g,'')"
+									   onfocus="this.placeholder=''" onblur="this.placeholder='请输入'" placeholder="请输入"></td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td>学时</td>
+							<td colspan="7">学时完成情况。每月10个学时</td>
+							<td><input id="period" name="period" oninput = "value=value.replace(/[^\d]/g,'')"
+									   onfocus="this.placeholder=''" onblur="this.placeholder='请输入'" placeholder="请输入"></td>
+						</tr>
+						<tr>
+							<td rowspan="8" style="vertical-align:middle">考勤情况（50分）</td>
+							<td colspan="2">50</td>
+							<td colspan="7">满勤。每半天1分，每天2分</td>
+							<td><input id="fchuqing" name="fchuqing" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td >
+								<a style="display: inline" onclick="emObj.addday('tiaoxiu')"><img height="15px" src="img/and.png"></a>
+								<input style="width: 32px" value="0" id="tiaoxiu" name="tiaoxiu" oninput = "value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+								<a style="display: inline" onclick="emObj.minusday('tiaoxiu')"><img height="15px" src="img/reduce.png"></a>
+							</td>
+							<td>天</td>
+							<td colspan="7">调休。每次半天不扣分，一天扣1分</td>
+							<td><input id="ftiaoxiu" name="ftiaoxiu" disabled="disabled">
+						</tr>
+						<tr>
+							<td><a onclick="emObj.addday('qingjia')"><img height="15px" src="img/and.png"></a>
+								<input style="width: 32px" value="0" id="qingjia" name="qingjia" oninput = "value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+								<a  onclick="emObj.minusday('qingjia')"><img height="15px" src="img/reduce.png"></a>
+							</td>
+							<td>天</td>
+							<td colspan="7">请假。每半天3分，每天6分</td>
+							<td><input id="fqingjia" name="fqingjia" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td>
+								<a onclick="emObj.addday('kuanggong')"><img height="15px" src="img/and.png"></a>
+								<input style="width: 32px" value="0" id="kuanggong" name="kuanggong" oninput = "value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+								<a  onclick="emObj.minusday('kuanggong')"><img height="15px" src="img/reduce.png"></a>
+							</td>
+							<td>天</td>
+							<td colspan="7">旷工。每半天10分，每天20分</td>
+							<td><input id="fkuanggong" name="fkuanggong" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td>
+								<a onclick="emObj.addday('chidao')"><img height="15px" src="img/and.png"></a>
+								<input style="width: 32px" value="0" id="chidao" name="chidao" oninput = "value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+								<a  onclick="emObj.minusday('chidao')"><img height="15px" src="img/reduce.png"></a>
+							</td>
+							<td>次</td>
+							<td colspan="7">迟到与早退。每次1分。每月10个学时</td>
+							<td><input id="fchidao" name="fchidao" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td>
+								<a onclick="emObj.addday('lunxiu')"><img height="15px" src="img/and.png"></a>
+								<input style="width: 32px" value="0" id="lunxiu" name="lunxiu" oninput = "value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+								<a  onclick="emObj.minusday('lunxiu')"><img height="15px" src="img/reduce.png"></a>
+							</td>
+							<td>天</td>
+							<td colspan="7">轮休。每半天0.5分，每天1分</td>
+							<td><input id="flunxiu" name="flunxiu" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td>
+								<a onclick="emObj.addday('chuchai')"><img height="15px" src="img/and.png"></a>
+								<input style="width: 32px" value="0" id="chuchai" name="chuchai" oninput = "value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')">
+								<a  onclick="emObj.minusday('chuchai')"><img height="15px" src="img/reduce.png"></a>
+							</td>
+							<td>天</td>
+							<td colspan="7">出差。每半天1分，每天2分</td>
+							<td><input id="fchuchai" name="fchuchai" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td colspan="9">合计</td>
+							<td><input type="text" id="sum" name="sum" disabled="disabled" ></td>
+						</tr>
+						<tr>
+                			<td>加班(小时)</td>
+                			<td colspan="2">
+                				<a onclick="emObj.addday1('jiaban')"><img height="15px" src="img/and.png"></a>
+                        		<input style="width: 32px" value="0" id="jiaban" name="jiaban" oninput = "value=value.replace(/[^\d{1,}\]/g,'')">
+                        		<a  onclick="emObj.minusday1('jiaban')"><img height="15px" src="img/reduce.png"></a>
+                				</td>
+                			<td>值班(天)</td>
+                			<td colspan="2">
+			                	<a onclick="emObj.addday1('zhiban')"><img height="15px" src="img/and.png"></a>
+			                    <input style="width: 32px" value="0" id="zhiban" name="zhiban" oninput = "value=value.replace(/[^\d{1,}\]/g,'')">
+                       			<a  onclick="emObj.minusday1('zhiban')"><img height="15px" src="img/reduce.png"></a>
+                			</td>
+                			<td>考勤(天)</td>
+                				<td colspan="4">
+                				<a onclick="emObj.addday1('kaoqin')"><img height="15px" src="img/and.png"></a>
+                        		<input style="width: 32px" value="0" id="kaoqin" name="kaoqin" oninput = "value=value.replace(/[^\d{1,}\]/g,'')">
+                        		<a  onclick="emObj.minusday1('kaoqin')"><img height="15px" src="img/reduce.png"></a>
+                			</td>
+                		</tr>
+                		<tr>
+                			<td colspan="2">净绩效</td>
+                    		<td colspan="2"><input type="text" id='netPerformance' name="netPerformance" disabled="disabled" ></td>
+                    		<td colspan="3">综合绩效</td>
+                			<td colspan="4"><input type="text" id="comprehensivePerformance" name="comprehensivePerformance" disabled="disabled" ></td>
+                		</tr>
+						<tr>
+							<td>备注</td>
+							<td colspan="10"><input id="remark" name="remark"></td>
+						</tr>
+					</table>
+				</form>
+				<div id="yejiButton">
+					<input type="button" class="button3" value="取消" style="margin-top: 20px;width: 80px"
+						   onclick="document.getElementById('appraise').style.display='none'" />&nbsp&nbsp
+					<input type="button" class="button" value="确定" style="width: 80px" onclick='emObj.insertScore("mySelect") '/>
+				</div>
+				<div id="xingweiButton" style="display: none">
+					<input type="button" class="button3" value="取消" style="margin-top: 20px;width: 80px"
+						   onclick="document.getElementById('appraise').style.display='none'" />&nbsp&nbsp
+					<input type="button" class="button" value="确定" style="width: 80px" onclick='emObj.updateBe() '/>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<div id="appraiseself" class="white_content4"  >
+		<div  style="font-size: 18px; line-height: 58px; text-align: center;margin-top: 10px;margin-bottom: 5px">
+			<span style="margin-left: 45%">个人考核</span><span style="margin-left: 43%"><img height="18px" src="img/close.png" onclick="window.document.getElementById('appraiseself').style.display='none'"></span>
+		</div>
+
+		<div class="tab-div">
+			<div style="margin-left: 20px;" >
+				<input type="button" value="业绩考核" class="buttonme1" id="buttonAp3">
+				<input type="button" value="行为考核" class="buttonme2" id="buttonAp4">
+			</div>
+			<div class="tab-content tab-content-show" >
+				<form  id="yejiself" style="font-size: 16px;padding-left: 20px;padding-right:20px;margin-top: 41px;">
+					<table class="table table-bordered" style="font-size: 14px;text-align: center">
+						<tr>
+							<td hidden><input  id="semployeeId" name="semployeeId" type="text"></td>
+							<td  width="76px">姓名</td>
+							<td width="170px"><input id="sName" name="sName" disabled="disabled"></td>
+							<td width="77px">员工编号</td>
+							<td width="170px"><input id="sUserName" name="sUserName" disabled="disabled" ></td>
+							<td width="77px">岗位名称</td>
+							<td width="170px"><input id="sPost" name="sPost" disabled="disabled"></td>
+							<td width="77px">考核周期</td>
+							<td width="108px">
+								<select id="sSelect" onchange="uinf.findPeAcc();
+                        this.size=1;" style="background-color:white;z-index: 1003"  onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=1">
+									
+								</select>
+							</td>
+							<td rowspan="2" style="vertical-align:middle" >考核分</td>
+						</tr>
+						<tr>
+							<td>序号</td>
+							<td colspan="3">工作任务</td>
+							<td colspan="3">考核标准</td>
+							<td>权重</td>
+						</tr>
+						<tbody id="peAccself">
+						</tbody>
+						<tfoot>
+					</table>
+				</form>
+				<form id="xingweiself" style="display: none;width: 95%;margin: auto;margin-top: 20px;">
+					<table class="table table-bordered" style="font-size: 14px;text-align: center;">
+						<tr>
+							<td hidden><input type="text" id="sxemployeeId" name="sxemployeeId"></td>
+							<td width="150px">姓名</td>
+							<td colspan="2"><input type="text" id="sxName" name="sxName" disabled="disabled" ></td>
+							<td >员工编号</td>
+							<td colspan="6"> <input type="text" id="sxUserName" name="sxUserName" disabled="disabled" ></td>
+							<td rowspan="3" width="130px" style="vertical-align: middle">考核分</td>
+						</tr>
+						<tr>
+							<td>岗位名称</td>
+							<td colspan="2"><input type="text" id="sxPost" name="sxPost" disabled="disabled" ></td>
+							<td>考核周期</td>
+							<td colspan="4"  width="120px">
+								<select id="scycleSelect" onchange="uinf.selectBe()" style="width:95px;text-align: center">
+									
+								</select>
+							</td>
+
+						</tr>
+						<tr>
+							<td>考核项目</td>
+							<td colspan="2" >考核分值</td>
+							<td colspan="7" >考核标准</td>
+						</tr>
+						<tr>
+							<td rowspan="5" style="vertical-align:middle">学习能力（50分）</td>
+							<td width="100px">10</td>
+							<td>分</td>
+							<td colspan="7">第一周考试成绩<input hidden id="sBeId" type="text"></td>
+							<td><input id="sweek1" name="sweek1" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td>分</td>
+							<td colspan="7">第二周考试成绩</td>
+							<td><input id="sweek2" name="sweek2" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td>分</td>
+							<td colspan="7">第三周考试成绩</td>
+							<td><input id="sweek3" name="sweek3" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td>分</td>
+							<td colspan="7">第四周考试成绩</td>
+							<td><input id="sweek4" name="sweek4" disabled="disabled" ></td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td>学时</td>
+							<td colspan="7">学时完成情况。每月10个学时</td>
+							<td><input id="speriod" name="sweek5" disabled="disabled" ></td>
+						<tr>
+							<td rowspan="8" style="vertical-align:middle">考勤情况（50分）</td>
+							<td colspan="2">50</td>
+							<td colspan="7">满勤。每半天1分，每天2分</td>
+							<td><input id="sfchuqing" name="sfchuqing" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td >
+								<input style="width: 32px" value="0" id="stiaoxiu" name="stiaoxiu" >
+							</td>
+							<td>天</td>
+							<td colspan="7">调休。每次半天不扣分，一天扣1分</td>
+							<td><input id="sftiaoxiu" name="sftiaoxiu" disabled="disabled">
+						</tr>
+						<tr>
+							<td>
+								<input style="width: 32px" value="0" id="sqingjia" name="sqingjia">
+							</td>
+							<td>天</td>
+							<td colspan="7">请假。每半天3分，每天6分</td>
+							<td><input id="sfqingjia" name="sfqingjia" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td>
+								<input style="width: 32px" value="0" id="skuanggong" name="skuanggong">
+							</td>
+							<td>天</td>
+							<td colspan="7">旷工。每半天10分，每天20分</td>
+							<td><input id="sfkuanggong" name="sfkuanggong" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td>
+								<input style="width: 32px" value="0" id="schidao" name="schidao" >
+							</td>
+							<td>次</td>
+							<td colspan="7">迟到与早退。每次1分。每月10个学时</td>
+							<td><input id="sfchidao" name="sfchidao" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td>
+								<input style="width: 32px" value="0" id="slunxiu" name="slunxiu" >
+							</td>
+							<td>天</td>
+							<td colspan="7">轮休。每半天0.5分，每天1分</td>
+							<td><input id="sflunxiu" name="sflunxiu" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td>
+								<input style="width: 32px" value="0" id="schuchai" name="schuchai" >
+							</td>
+							<td>天</td>
+							<td colspan="7">出差。每半天1分，每天2分</td>
+							<td><input id="sfchuchai" name="sfchuchai" disabled="disabled"></td>
+						</tr>
+						<tr>
+                			<td>加班(小时)</td>
+                			<td colspan="2"><input type="text" id="sfjiaban" name="sfjiaban" disabled="disabled" ></td>
+                			<td>值班(天)</td>
+                			<td colspan="2"><input type="text" id="sfzhiban" name="sfzhiban" disabled="disabled" ></td>
+                			<td>考勤(天)</td>
+                			<td colspan="4"><input type="text" id="sfkaoqin" name="sfkaoqin" disabled="disabled" ></td>
+                		</tr>
+                		<tr>
+                			<td colspan="2">净绩效</td>
+                    		<td colspan="2"><input type="text" id='sfnetPerformance' name="sfnetPerformance" disabled="disabled" ></td>
+                    		<td colspan="3">综合绩效</td>
+                			<td colspan="4"><input type="text" id="sfcomprehensivePerformance" name="sfcomprehensivePerformance" disabled="disabled" ></td>
+                		</tr>
+						<tr>
+							<td colspan="10">合计</td>
+							<td><input type="text" id="ssum" name="ssum" disabled="disabled" ></td>
+						</tr>
+
+					</table>
+				</form>
+			</div>
+
+
+		</div>
+	</div>
+	<script>loodtable()</script>
+	
+	<div id='banner' onclick='closeBanner()'></div>
+	<div id='achievementRecord'>
+		<table>
+			<thead>
+				<tr>
+					<th>员工姓名</th><td th:text = "${session.Name}"></td>
+					<th>员工编号</th><td id='achievementUserName'></td>
+					<td><input id='achievementTime' /></td>
+				</tr>
+				<tr>
+					<th>周次</th>
+					<th>第一次成绩</th>
+					<th>第二次成绩</th>
+					<th>第三次成绩</th>
+					<th>第四次成绩</th>
+				</tr>
+			</thead>
+			<tbody id='achievementTbody'></tbody>
+		</table>
+	</div>
+	<div id='achievementRecord-labor' class="white_content1-labor">
+		<div style="height: 100px;" class="layui-inline">
+			<input type="text" class="layui-input" placeholder="请选择月份" id="laborMonth" style="height:36px;width:150px;float: left">
+			<div id="resetLaborDay" style="height:36px;width:150px;float: left">
+				<input type="text" class="layui-input" placeholder="请选择日期" id="laborDay" style="height:36px;width:150px;display: none;float: left;">
+			</div>
+			<div style="height:36px;width:100px;float: left;"></div>
+			<div style="height:36px;width:70px;float: left;font-size: inherit;font-family: inherit;font-weight: inherit;font-style: inherit;display:table-cell;vertical-align: middle;line-height: 36px" >工时数</div>
+			<div style="height:36px;width:330px;float: left;">
+				<input type="text" class="layui-input" id="laborTime" style="height: 36px;width:100px;float: left;display: inline;"disabled>
+			</div>
+		</div>
+		<table id="labor" lay-filter="labor"></table>
+		<script type="text/html" id="zizeng-labor">
+			{{d.LAY_TABLE_INDEX+1}}
+		</script>
+	</div>
+	<script>
+		//Demo
+		layui.use('form', function(){
+			var form = layui.form;
+
+			//监听提交
+			form.on('submit(formDemo)', function(data){
+				layer.msg(JSON.stringify(data.field));
+				return false;
+			});
+			form.render();
+		});
+	</script>
+</body>
+</html>

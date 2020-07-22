@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hope.mapper.Employeemapper">
+
+    <select id="findAll" resultType="com.hope.domain.Employee">
+        SELECT a.*,b.roleId,b.projectId,c.departmentName FROM employee a
+		LEFT JOIN users b ON a.UserName = b.UserName
+		LEFT JOIN department c ON a.Department = c.id order by a.department,laowupaiqian,userName
+    </select>
+
+    <select id="findAll2By" resultType="com.hope.domain.Employee">
+        SELECT a.*,b.roleId,b.projectId,c.departmentName FROM employee a
+		LEFT JOIN users b ON a.UserName = b.UserName
+		LEFT JOIN department c ON a.Department = c.id
+		WHERE a.manager=#{param1} or a.UserName = #{param1} order by a.department,laowupaiqian,userName
+    </select>
+
+
+
+    <select id="findAllinform" resultType="com.hope.domain.Employee">
+        SELECT a.*,b.roleId,b.projectId,c.departmentName FROM employee a
+		LEFT JOIN users b ON a.UserName = b.UserName
+		LEFT JOIN department c ON a.Department = c.id
+    </select>
+
+    <select id="findAllinformByUsername" resultType="com.hope.domain.Employee">
+        SELECT a.*,b.roleId,b.projectId,c.departmentName FROM employee a
+		LEFT JOIN users b ON a.UserName = b.UserName
+		LEFT JOIN department c ON a.Department = c.id
+        where a.Manager = #{param1} or a.UserName = #{param1}
+    </select>
+
+
+
+
+    <update id="update">
+        update employee
+        <set>
+            <if test="obj.Name!=null">Name=#{obj.Name},</if>
+            <if test="obj.Manager!=null">Manager=#{obj.Manager},</if>
+            <if test="obj.Idnumber!=null">Idnumber=#{obj.Idnumber},</if>
+            <if test="obj.Card!=null">Card=#{obj.Card},</if>
+            <if test="obj.Phone!=null">Phone=#{obj.Phone},</if>
+            <if test="obj.Closhe!=null">Closhe=#{obj.Closhe},</if>
+            <if test="obj.Hat!=null">Hat=#{obj.Hat},</if>
+            <if test="obj.Education!=null">Education=#{obj.Education},</if>
+            <if test="obj.Department!=null">Department=#{obj.Department},</if>
+            <if test="obj.Laowupaiqian!=null">Laowupaiqian=#{obj.Laowupaiqian},</if>
+            <if test="obj.Credentials1!=null">Credentials1=#{obj.Credentials1},</if>
+            <if test="obj.Credentials2!=null">Credentials2=#{obj.Credentials2},</if>
+            <if test="obj.Credentials3!=null">Credentials3=#{obj.Credentials3},</if>
+            <if test="obj.Post!=null">Post=#{obj.Post},</if>
+            <if test="obj.date!=null">date=#{obj.date},</if>
+            <if test="obj.State!=null">State=#{obj.State},</if>
+            <if test="obj.Emergency!=null">Emergency=#{obj.Emergency},</if>
+            <if test="obj.EmergencyTel!=null">EmergencyTel=#{obj.EmergencyTel},</if>
+            <if test="obj.Remark!=null">Remark=#{obj.Remark},</if>
+            <if test="obj.Basicwages!=null">Basicwages=#{obj.Basicwages},</if>
+            <if test="obj.Meritpay!=null">Meritpay=#{obj.Meritpay},</if>
+            <if test="obj.Wages!=null">Wages=#{obj.Wages},</if>
+            <if test="obj.bank!=null">bank=#{obj.bank},</if>
+            <if test="obj.address!=null">address=#{obj.address},</if>
+        </set>
+        <where>
+            id=#{obj.id}
+        </where>
+    </update>
+
+    <update id="updateUser">
+        update users set UserName=#{users.UserName},Name=#{users.Name},roleId=#{users.roleId},projectId=#{users.projectId}
+        <where>Id=#{users.Id}</where>
+    </update>
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from users where id=#{param1}
+    </delete>
+
+    <select id="findById" resultType="com.hope.domain.Employee">
+       select a.*,c.departmentName,d.roleId from employee a
+        LEFT JOIN department c ON a.Department = c.id
+        left join users d on a.UserName = d.UserName
+        where a.id=#{param1}
+    </select>
+
+    <insert id="insert" parameterType="com.hope.domain.Employee">
+        insert ignore into employee (UserName,Name,Userid) value (#{obj.UserName},#{obj.Name},#{obj.Userid})
+    </insert>
+
+    <insert id="insertUser">
+        insert ignore into users (UserName,Name,Password,Permissions,roleId,projectId) value
+        (#{users.UserName},#{users.Name},#{users.Password},#{users.Permissions},#{users.roleId},#{users.projectId})
+    </insert>
+
+    <select id="findappraiseUserName" resultType="java.lang.String">
+        select Name from employee where Manager=#{param1}
+    </select>
+
+    <insert id="insertlearning">
+        insert ignore into learningsituation (UserName,Name,CourseID) value (#{param1},#{param2},1)
+    </insert>
+
+    <delete id="deletelearning">
+        delete from learningsituation where UserName=#{param1}
+    </delete>
+
+    <select id="findEmUserName" resultType="java.lang.String">
+        SELECT UserName FROM employee a
+		LEFT JOIN department b ON a.department = b.id
+		WHERE b.type != 0
+    </select>
+    
+    <select id="findEmUserName1" resultType="java.lang.String">
+        SELECT UserName FROM employee
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from employee
+    </select>
+
+    <select id="findIdByUserName" resultType="java.lang.Integer">
+        select id from employee where UserName=#{param1}
+    </select>
+
+    <select id="findBy" resultType="com.hope.domain.Employee" parameterType="com.hope.domain.Employee">
+        SELECT a.*,b.roleId,b.projectId,c.departmentName FROM employee a
+		LEFT JOIN users b ON a.UserName = b.UserName
+		LEFT JOIN department c ON a.Department = c.id
+        <where>
+            <if test="#{employee}!=null">
+                <if test="employee.UserName!=null and employee.UserName!=''">
+                    and a.UserName=#{employee.UserName}
+                </if>
+                <if test="employee.Name!=null and employee.Name!=''">
+                    and a.Name like CONCAT('%',#{employee.Name},'%')
+                </if>
+                <if test="employee.Department!=null and employee.Department!=''">
+                    and a.Department=#{employee.Department}
+                </if>
+            </if>
+
+        </where>
+    </select>
+
+    <select id="findAllinformBy" resultType="com.hope.domain.Employee" parameterType="com.hope.domain.Employee">
+        SELECT a.*,b.roleId,b.projectId,c.departmentName FROM employee a
+        LEFT JOIN users b ON a.UserName = b.UserName
+        LEFT JOIN department c ON a.Department = c.id
+        <where>
+                <if test="param1!=null and param1!=''">
+                    and a.UserName=#{param1}
+                </if>
+                <if test="param2!=null and param2!=''">
+                    and a.Name like CONCAT('%',#{param2},'%')
+                </if>
+                <if test="param3!=null and param3!=''and param3!=0">
+                    and a.Department=#{param3}
+                </if>
+        </where>
+    </select>
+
+    <select id="findAllinformByM" resultType="com.hope.domain.Employee" parameterType="com.hope.domain.Employee">
+        SELECT a.*,b.roleId,b.projectId,c.departmentName FROM employee a
+        LEFT JOIN users b ON a.UserName = b.UserName
+        LEFT JOIN department c ON a.Department = c.id
+        where a.Manager = #{param4} or a.UserName = #{param4}
+        <if test="param1!=null and param1!=''">
+                    and a.UserName=#{param1}
+                </if>
+                <if test="param2!=null and param2!=''">
+                    and a.Name like CONCAT('%',#{param2},'%')
+                </if>
+                <if test="param3!=null and param3!=''and param3!=0">
+                    and a.Department=#{param3}
+                </if>
+
+    </select>
+
+
+
+    <select id="selectByUserName" resultType="java.lang.Integer">
+        select id from users where UserName=#{param1}
+    </select>
+
+    <select id="selectByIdnumber" resultType="java.lang.Integer">
+        select count(*) from employee where Idnumber=#{param1}
+    </select>
+
+    <select id="selectUserName" resultType="java.lang.Integer">
+        select count(*) from users where UserName=#{param1}
+    </select>
+
+    <update id="reset" parameterType="java.lang.Integer">
+        update users set Password='123456' where id=#{param1}
+    </update>
+
+	<select id="selectRole"  resultType="com.hope.domain.Role">
+		select * from role
+	</select>
+	<select id="selectRoleById"  parameterType="java.lang.Integer" resultType="com.hope.domain.Role">
+		select * from role where id = #{id}
+	</select>
+	<update id="updateRole"  parameterType="com.hope.domain.Role">
+		update role set roleName = #{role.roleName} where id=#{role.id}
+	</update>
+	
+	<insert id="addRole"  parameterType="com.hope.domain.Role">
+		insert ignore into role(roleName,description) value (#{role.roleName},#{role.id})
+	</insert>
+	<delete id="deleteRole"  parameterType="java.lang.Integer">
+		delete from role where id = #{id}
+	</delete>
+	
+	
+	
+	<select id="getPermissionByparentId" parameterType="java.lang.Integer" resultType="com.hope.domain.Permission">
+		select * from permission where parentId = #{parentId}
+	</select>
+	
+	<select id='getCountRolePermission' resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM rolePermission WHERE roleId = #{roleId} AND permissionId = #{permissionId}
+	</select>
+	<update id="changRolePermissionTypeByRoleId" >
+		UPDATE rolePermission SET TYPE = 0 WHERE roleId = #{roleId}
+	</update>
+	<update id="changRolePermissionTypeByPermissionId">
+		UPDATE rolePermission SET TYPE = 1 WHERE roleId = #{roleId} AND permissionId = #{permissionId}
+	</update>
+	<insert id="addRolePermission">
+		INSERT ignore INTO rolePermission(roleId,permissionId,`type`) VALUE(#{roleId},#{permissionId},1)
+	</insert>
+	
+	<select id="getRolePermissionByRoleId" resultType="com.hope.domain.RolePermission">
+		SELECT a.id,roleId,permissionId,a.type,b.parentId parentId2,IFNULL(c.parentId,0) parentId1 FROM rolePermission a
+		LEFT JOIN permission b ON a.permissionId = b.id
+		LEFT JOIN permission c ON b.parentId = c.id
+		WHERE roleId = #{roleId}
+	</select>
+	
+	<select id='getPermissionByPermissionId' resultType="com.hope.domain.Permission">
+		SELECT a.projectId,b.type FROM users a
+		LEFT JOIN rolePermission b ON a.roleId = b.roleId 
+		WHERE userName = #{userName} AND b.permissionId = #{permissionId}
+	</select>
+	
+	<select id='getPermissionByUserId' resultType="com.hope.domain.Permission">
+		SELECT a.id,a.permissionName,b.type FROM permission a ,rolePermission b,users c
+		WHERE a.id = b.permissionId AND b.roleId = c.roleId AND UPPER(c.userName) =UPPER(#{userName}) AND a.parentId = 0
+	</select>
+    <select id='getRoleAndProjectByUserName' resultType="com.hope.domain.Permission">
+		SELECT a.UserName,a.Name,a.roleId,a.projectId FROM users a WHERE a.UserName=#{param1}
+	</select>
+
+
+	
+	<select id='getPermissionByAdmin' resultType="com.hope.domain.Permission">
+		SELECT id,permissionName FROM permission WHERE parentId = 0
+	</select>
+	
+	<select id='getPermissionByUserName' resultType="com.hope.domain.Permission">
+		
+	</select>
+	
+	
+	<select id="getDepartment" resultType="com.hope.domain.Department">
+		SELECT id,departmentName FROM department
+	</select>
+    <select id="getDepartmentByUsername" resultType="com.hope.domain.Department">
+		SELECT a.id,a.departmentName FROM department a right join employee b on a.id=b.Department where b.userName=#{param1}
+	</select>
+
+</mapper>

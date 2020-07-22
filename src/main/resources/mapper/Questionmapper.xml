@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hope.mapper.Questionsmapper">
+    <select id="findRand" resultType="com.hope.domain.Questionbank" parameterType="java.lang.String">
+    select Question,Answer from questionbank where CourseID=${CourseID} and ChapterID=${ChapterID }
+    </select>
+    <insert id="insert">
+        insert ignore into questionbank (CourseID,ChapterID,PoisionA,PoisionB1,PoisionB2,PoisionB3,Question,
+        Answer,OptionA,OptionB,OptionC,OptionD,Remarks,QuestionTime,Type) value
+        (#{obj.CourseID},#{obj.ChapterID},#{obj.PoisionA},#{obj.PoisionB1},#{obj.PoisionB2},
+        #{obj.PoisionB3},#{obj.Question},#{obj.Answer},#{obj.OptionA},#{obj.OptionB},
+        #{obj.OptionC},#{obj.OptionD},#{obj.Remarks},#{obj.QuestionTime},#{obj.Type})
+    </insert>
+
+    <insert id="insertpublishexam">
+        insert ignore into exampublish (CourseID,ChapterID,PoisionA,PoisionB1,startdate,enddate,state,week,examTime)
+         value (#{questionbank.CourseID},#{questionbank.ChapterID},#{questionbank.PoisionA},
+         #{questionbank.PoisionB1},#{questionbank.startdate},#{questionbank.enddate},2,#{questionbank.week},#{questionbank.examTime})
+    </insert>
+
+    <insert id="insertcycle">
+      insert ignore into behavior (cycle,employeeId) values (#{param1},#{param2});
+       </insert>
+
+    <select id="selectemployeeId" resultType="java.lang.Integer">
+        select id from employee where id not in(
+    select employeeId from behavior where cycle=#{param1})
+    </select>
+
+    <select id="findPoisionB1" resultType="java.lang.String">
+        select DISTINCT PoisionB1 from questionbank where PoisionA=#{param1}
+    </select>
+
+    <select id="findPoisionA" resultType="java.lang.String">
+        select DISTINCT PoisionA from questionbank
+    </select>
+
+    <select id="findquestionpublish" resultType="com.hope.domain.Questionbank">
+        select * from questionbank where
+        CourseID=#{questionbank.CourseID} and
+        ChapterID=#{questionbank.ChapterID} and
+        PoisionA=#{questionbank.PoisionA} and
+        PoisionB1=#{questionbank.PoisionB1}
+
+        order by rand() limit 20
+    </select>
+
+    <select id="findquestiontips" resultType="com.hope.domain.Questionbank">
+        select * from exampublish where state= 1
+    </select>
+
+    <select id="findExercise" resultType="com.hope.domain.Questionbank">
+        select * from questionbank
+        where 1=1
+        <if test="param1!=null and param1!=''">
+            and PoisionA=#{param1}
+        </if>
+        <if test="param2!=null and param2!=''">
+            and PoisionB1=#{param2}
+        </if>
+    </select>
+    <select id="findExam" resultType="com.hope.domain.Questionbank">
+        select *  from exampublish 
+        <if test="week != -2">
+        	where week=#{week}
+        </if>
+
+    </select>
+
+    <select id="countstart" resultType="java.lang.Integer">
+        select count(id) from exampublish where state= 1
+    </select>
+    
+	<select id="findAllByState" resultType="com.hope.domain.Questionbank">
+		SELECT * FROM exampublish WHERE state = 1
+	</select>
+	
+    <select id="findAllfrompublish" resultType="com.hope.domain.Questionbank">
+        select * from exampublish where id=#{param1}
+    </select>
+
+    <delete id="delete">
+        delete  from questionbank where QuestionID=#{obj.QuestionID}
+    </delete>
+
+    <delete id="deleteexam">
+        delete  from exampublish where id=#{param1}
+    </delete>
+
+    <update id="clearScore">
+        update learningsituation set TestScore='0',times='0'
+    </update>
+
+    <update id="updateexam">
+        update exampublish set CourseID=#{questionbank.CourseID},ChapterID=#{questionbank.ChapterID},PoisionA=#{questionbank.PoisionA},
+        PoisionB1=#{questionbank.PoisionB1},enddate=#{questionbank.enddate},startdate=#{questionbank.startdate},week=#{questionbank.week},examTime=#{questionbank.examTime}
+        where id=#{questionbank.id}
+    </update>
+
+    <update id="insertscore">
+        update behavior,learningsituation set behavior.${param1}=learningsituation.TestScore
+        where behavior.employeeId=(select id from employee where employee.UserName=learningsituation.UserName)
+        and behavior.cycle=#{param2}
+    </update>
+
+    <update id="startexam">
+        update exampublish set state= 1 where id=#{param1}
+    </update>
+
+    <update id="finishexam">
+        update exampublish set state= 0 where id=#{param1}
+    </update>
+
+    <update id="update">
+        update questionbank set CourseID=#{obj.CourseID},ChapterID=#{obj.ChapterID},PoisionA=#{obj.PoisionA},PoisionB1=#{obj.PoisionB1},
+        PoisionB2=#{obj.PoisionB2},PoisionB3=#{obj.PoisionB3},Question=#{obj.Question},QuestionTime=#{obj.QuestionTime},Type=#{obj.Type},
+        Answer=#{obj.Answer},OptionA=#{obj.OptionA},OptionB=#{obj.OptionB},OptionC=#{obj.OptionC},OptionD=#{obj.OptionD},Remarks=#{obj.Remarks}
+        where QuestionID=#{obj.QuestionID}
+    </update>
+</mapper>

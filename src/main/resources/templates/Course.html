@@ -1,0 +1,721 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>杭州浩维管理平台</title>
+<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+<script type="text/javascript" src="js/question.js"></script>
+<script type="text/javascript" src="js/Exercise.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+	<script type="text/javascript" src="js/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+<link href="../css/logo.css" rel="stylesheet"/>
+<style>
+h1, h2, h3, h4, h5, h6, form, div, ul, ol, dl, dt, dd, p, i, li, big,
+	small, em, i, input, select, textarea, td, th {
+	margin: 0;
+	padding: 0;
+}
+
+div {
+	margin: 0 auto;
+}
+
+a, img {
+	border: none;
+}
+
+img {
+	vertical-align: middle;
+}
+
+em, i {
+	font-style: normal;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+#warpper {
+	border: #dfdfdf 1px solid;
+	padding: 10px;
+	width: 1200px;
+	margin: 20px auto;
+	background: #fff;
+	border-radius: 4px;
+	height: 600px;
+}
+
+.title_tab {
+	border-bottom: #dedede 1px solid;
+	margin: 0 -10px 5px;
+	height: 180px;
+	/*本来是40px*/
+}
+.title_tab_1 {
+	border-bottom: #dedede 1px solid;
+	margin: 0 -10px 5px;
+	height: 180px;
+}
+
+.title_tab ul {
+	font-family: "华文黑体", "黑体", "Arial";
+	color: #FFFFFF;
+	float: left;
+	width: 1200px;
+	height: 30px;
+}
+
+.title_tab ul li {
+	float: left;
+	position: relative;
+	top: 1px;
+	background: #44ACFF;
+	border: #dedede 1px solid;
+	width: 50px;
+	text-align: center;
+	line-height: 28px;
+	margin: 0 4px;
+	cursor: pointer;
+	border-radius: 4px;
+}
+
+.title_tab ul li.current {
+	background: #E27635;
+	border-bottom: #E27635 1px solid;
+	border-left: #dedede 1px solid;
+	border-right: #dedede 1px solid;
+	border-top: #dedede 1px solid;
+}
+
+.tab_content {
+	display: none;
+	line-height: 36px;
+	font-size: 16px;
+}
+
+.tab_content.current {
+	display: block;
+}
+
+.black_overlay {
+	display: none;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 200%;
+	background-color: black;
+	z-index: 1000;
+	-moz-opacity: 0.8;
+	opacity: .80;
+	filter: alpha(opacity = 88);
+}
+
+.white_content {
+	display: none;
+	position: absolute;
+	top: 10%;
+	left: 10%;
+	width: 80%;
+	height: 80%;
+	padding: 20px;
+	border: 10px solid #DFF3FC;
+	background-color: white;
+	z-index: 1001;
+	overflow: auto;
+}
+
+.white_content1 {
+	display: none;
+	position: absolute;
+	top: 25%;
+	left: 20%;
+	width: 1200px;
+	height: 367px;
+	background-color: white;
+	z-index: 1001;
+	overflow: auto;
+	border-radius: 4px;
+	box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);
+}
+
+.button {
+	display: inline-block;
+	background: #44ACFF;
+	border: 1px solid #44ACFF;
+	border-radius: .3em;
+	color: white;
+	width: 80px;
+	height: 32px;
+	font-size: 14px;
+	outline: none;
+}
+
+.button:active {
+	background-color: #E27635;
+	border-color: #E27635;
+}
+
+table.gridtable {
+	font-family: verdana, arial, sans-serif;
+	font-size: 16px;
+	color: #333333;
+	border-color: #666666;
+	border-collapse: collapse;
+	border-ridus: 4px;
+	width: 1200px;
+}
+
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #ADADAD;
+	background-color: #44ACFF;
+	height: 28px;
+	color: #FFFFFF;
+}
+
+table.gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #ADADAD;
+	background-color: #ffffff;
+	height: 28px;
+	text-align: center;
+}
+
+.button1 {
+	display: inline-block;
+	background: #9B9B9B;
+	border: 1px solid #9B9B9B;
+	border-radius: .3em;
+	color: white;
+	width: 80px;
+	height: 32px;
+	font-size: 14px;
+	outline: none;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.button1:active {
+	background-color: #E27635;
+	border-color: #E27635;
+}
+
+table.coursetable {
+	font-family: verdana, arial, sans-serif;
+	font-size: 16px;
+	border-radius: 4px;
+	width: 1200px;
+	border: 1px #979797 solid;
+	height: auto;
+	position: absolute;
+	top: 25%;
+	left: 20%;
+	display: none;
+	z-index: 1002;
+}
+
+table.coursetable th {
+	background-color: #DFF3FC;
+	width: 1200px;
+	height: 32px;
+	text-align: left;
+	font-family: 黑体;
+	border-radius: 4px;
+}
+
+table.coursetable td {
+	width: 20%;
+	height: 32px;
+	border-top: 1px #4A90E2 solid;
+	border-left: 1px #4A90E2 solid;
+	text-align: center;
+}
+
+.answer {
+	display: none;
+}
+
+a, ul, li, div {
+	padding: 0;
+	margin: 0;
+}
+
+/*******===================头====================************/
+#centre {
+	margin: 0 auto;
+	width: 1200px;
+	height: 120px;
+	border: 1px #979797 solid;
+	margin-top: 100px;
+	border-radius: 4px;
+}
+
+
+
+#search {
+	font-family: STHeitiSC-Medium;
+	font-size: 16px;
+	color: #4A4A4A;
+	text-align: left;
+	line-height: 80px;
+	height: 120px;
+	margin-left: 20px;
+}
+/***********==============中部===================*******/
+#bottom {
+	margin: 0 auto;
+	width: 1200px;
+	height: auto;
+	margin-top: 40px;
+}
+/***********==============底部===================*******/
+</style>
+<script type="text/javascript">
+	function onSearch(obj)
+	{
+		setTimeout(function()
+		{
+			var storeId = document.getElementById('course');
+			var rowsLength = storeId.rows.length;
+			var key = obj.value;//获取输入框的值
+			var searchCol = 5;//要搜索的哪一列，这里是第一列，从0开始数起
+			for (var i = 1; i < rowsLength; i++)
+			{//按表的行数进行循环，本例第一行是标题，所以i=1，从第二行开始筛选（从0数起）
+				var searchText = storeId.rows[i].cells[searchCol].innerHTML;//取得table行，列的值
+				if (searchText.match(key))
+				{//用match函数进行筛选，如果input的值，即变量 key的值为空，返回的是ture，
+					storeId.rows[i].style.display = '';//显示行操作，
+				} else
+				{
+					storeId.rows[i].style.display = 'none';//隐藏行操作
+				}
+			}
+		}, 200);//200为延时时间
+	}
+</script>
+<script type="text/javascript">
+	window.onload = function()
+	{
+		var etable = document.getElementById("course");//table的id
+		var btn1 = document.getElementById("btn");//按钮的id
+		var text1 = document.getElementById("txt1");//查询input关键字的id
+		var text2 = document.getElementById("key");//查询input关键字的id
+
+		btn1.onclick = function()
+		{
+			for (i = 1; i < etable.tBodies[0].rows.length; i++)
+			{
+
+				//toLowerCase 对大写字母转化为小写字母
+				var str1 = etable.tBodies[0].rows[i].cells[1].innerHTML
+						.toLowerCase();//表格字符串
+				var str2 = text1.value.toLowerCase();//输入的字符串
+				var str3 = text2.value.toLowerCase();
+				var str4 = etable.tBodies[0].rows[i].cells[5].innerHTML
+						.toLowerCase();
+
+				var L = str2.split(" ");
+				etable.tBodies[0].rows[i].style.display = "none";
+				for (var j = 0; j < L.length; j++)
+				{
+					if (str1.search(L[j]) != -1 && str4.search(str3) != -1)
+					{
+						etable.tBodies[0].rows[i].style.display = "";
+					}
+				}
+
+				//search等于-1没找到
+				/*if (str1.search(str2)!=-1&&str4.search(str3)!=-1) {
+				 etable.tBodies[0].rows[i].style.display="";
+				 }*/
+			}
+		}
+	}
+</script>
+<script type="text/javascript">
+	function answershow(id)
+	{
+		var a = document.getElementById("answer" + id);
+		if (a.style.display == "none")
+		{
+			a.style.display = "block";
+		} else
+		{
+			a.style.display = "none";
+		}
+	}
+</script>
+<script type="text/javascript">
+	function Maxbig(obj)
+	{
+		var a = document.getElementById("exercise");
+		a.style.top = a.style.left = 0;
+		a.style.width = document.documentElement.clientWidth - 50 + "px";
+		a.style.height = document.documentElement.clientWidth - 50 + "px";
+		obj.style.display = "none";
+		/* b.style.display = "block"; */
+	}
+</script>
+<script type="text/javascript">
+$(function(){
+	var userName = sessionStorage.Username
+	document.getElementById('li1').style.display='none';
+	document.getElementById('li2').style.display='none';
+	document.getElementById('li3').style.display='none';
+	// document.getElementById('li4').style.display='none';
+	document.getElementById('li5').style.display='none';
+	$.ajax({
+    	url: '/getPermissionByUserId',
+    	type: "POST",
+    	datatype: 'json',
+    	data:{userName: userName},
+    	success: function (data) {
+    		for(var i=0;i<data.length;i++){
+    			if(data[i].id!=6&&data[i].type==1){
+        			document.getElementById('li'+data[i].id).style.display='';
+    			}
+    		}
+    	}
+	});
+})
+
+</script>
+</head>
+
+<body leftmargin=0 topmargin=0 width=100% height=100%>
+	<div id="top">
+		<div id="nav">
+			<img id="logo" src="img/logo.png" width="64px" height="64px" />
+			<span id="text">杭州浩维管理平台</span>
+			<ul>
+				<li><input type="button" value="注销" id="login" class="button" onclick="window.document.location.href='/logout'"
+						   style="    cursor: pointer;height: 24px;width: 80px;font-size:16px;background-color: #F5F4F5;color: #4A4A4A;margin-top: 29px;line-height: 24px"></li>
+				<li><a href="Course" title="我的课程" target="_self" style="color:  #3D96D6">我的课程</a></li>
+				<li><a href="/HomeController/home" title="日志和周报" target="_self">日志和周报</a></li>
+				<li id='li6'><a href="/pollingSystem" target="_self">运行引导</a></li>
+				<li id='li5'><a href="/Attendance" target="_self">考勤系统</a></li>
+				<li id='li4'><a href="/Employeemanage" target="_self">员工管理</a></li>
+				<li id='li3'><a href="/exammanage" target="_self">考试管理</a></li>
+				<li id='li1'><a href="/exercisemanage" target="_self" >题库管理</a></li>
+				<li id='li2'><a href="/Inform" target="_self">通知管理</a></li>
+				<li><a href="index" title="首页" target="_self">我的首页</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="line"></div>
+	<!--------头部------------>
+	<div id="centre">
+		<div id="search">
+			体系名：<input type="search" placeholder="请输入体系名"
+				style="width: 160px; height: 34px; font-size: 16px; font-family: STHeitiSC-Medium; font-size: 16px; border-radius: 4px; outline: none; border: 1px #9B9B9B solid;"
+				name="key" id="key" onkeydown="onSearch(this)"></input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			课程名：<input type="search" placeholder="请输入课程名"
+				style="width: 160px; height: 34px; font-size: 16px; font-family: STHeitiSC-Medium; font-size: 16px; border-radius: 4px; outline: none; border: 1px #9B9B9B solid;"
+				id="txt1"></input>&nbsp&nbsp&nbsp&nbsp&nbsp <input type="button"
+				value="查询" class="button" id="btn"></input>
+		</div>
+	</div>
+	<!--------中间------------->
+	<div id="bottom">
+		<table class="gridtable" id="course">
+			<tr>
+				<th>课程序号</th>
+				<th>课程名</th>
+				<th>学时</th>
+				<th>学分</th>
+				<th>实际学时</th>
+				<th>体系</th>
+				<th width="80px"></th>
+				<th width="80px"></th>
+				<th width="80px"></th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td a href="javascript:void(0)"
+					onclick="document.getElementById('introduction').style.display='block';document.getElementById('aa').style.display='block';">系统运维</td>
+				<td>30.0</td>
+				<td>4.0</td>
+				<td>2.0</td>
+				<td>运行管理</td>
+				<td><input name="imgbtn" type="image" src="img/学习.png"
+					width="25" height="25" border="0" title="点击开始学习"
+					onclick="location.href='Chapter'"></td>
+				<td><input name="imgbtn" type="image" src="img/课时练习.png"
+					width="25" height="25" border="0" title="点击开始练习" a
+					href="javascript:void(0)"
+					onclick="document.getElementById('exercise').style.display='block';document.getElementById('fade').style.display='block';showQ();timeCount();"></td>
+				<td><input name="imgbtn" type="image" src="img/考试分析.png"
+					width="25" height="25" border="0" title="点击开始考试" a
+					href="javascript:void(0)"
+					onclick="document.getElementById('exam').style.display='block';document.getElementById('fade').style.display='block';time();Showtimes();"></td>
+			</tr>
+		</table>
+	</div>
+	<!-----------底部---------------->
+	<div id="learn" class="white_content">
+		学习内容. <a href="javascript:void(0)"
+			onclick="document.getElementById('learn').style.display='none';document.getElementById('fade').style.display='none'">点这里关闭本窗口</a>
+	</div>
+	<div id="exercise" class="white_content">
+		<div style="float: left">
+			<p id="TimeCount">00:00:00</p>
+			<!--起始序号选择：<select id="Eo" onchange="ShowExercise();">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+			</select>--> 
+			<a>属性A选择:</a>
+			<select id="PoisionA" onchange="showselect();" style="width:60px;height:20px;">
+				<option value="安全">安全</option>
+				<option value="检修">检修</option>
+				<option value="运行">运行</option>
+			</select><br>
+			<a>属性B选择:</a>
+			<select id="PoisionB" style="width:60px;height:20px;" name="PoisionB"></select><br>
+			<a>章节选择:</a>
+			<input id="ChapterId" style="width:60px;height:20px;" value="1" oninput = "value=value.replace(/[^\d]/g,'')"/><br>
+			<button class="button" onclick="showQ();" value="显示题目" style="margin-top:20px;">显示题目</button>
+		</div>
+		<div id="controlbtn" style="float: right;">
+			<input type="image" src="img/最大化.png" width="24" height="24"
+				border="0" title="最大化" onclick="Maxbig(this)" style="outline: none;"
+				id="maxbig"></input> <input type="image" style="outline: none;"
+				src="img/关闭.png" width="24" height="24" border="0" title="关闭" a
+				href="javascript:void(0)"
+				onclick="document.getElementById('exercise').style.display='none';document.getElementById('fade').style.display='none';stopCount();"></input>
+		</div>
+		<div id="warpper">
+			<div id="tab_candidates"></div>
+		</div>
+		<div style="width: 100%; text-align: center;">
+			<input type="button" value="上一题" class="button" onclick="tabPrev()"></input>
+			<input type="button" value="下一题" class="button" onclick="tabNext()"></input>
+		</div>
+	</div>
+	<div id="exam" class="white_content">
+		<div id="time"
+			style="color: red; float: left; margin: 0 0 0 0; padding: 0 0 0 0; font-size: 18px;"></div>
+		<div id="controlbtn" style="float: right;">
+			<input type="image" src="img/复原.png" width="24" height="24"
+				border="0" title="复原" onclick="revert(this)"
+				style="outline: none; display: none;" id="revert"></input> <input
+				type="image" src="img/最大化.png" width="24" height="24" border="0"
+				title="最大化" onclick="Maxbig(this)" style="outline: none;"
+				id="maxbig"></input> <input type="image" style="outline: none;"
+				src="img/关闭.png" width="24" height="24" border="0" title="关闭" a
+				href="javascript:void(0)"
+				onclick="document.getElementById('exam').style.display='none';document.getElementById('fade').style.display='none';StopEt();"></input>
+		</div>
+		<div id="warpper">
+			<div id="tab_candidates1"></div>
+		</div>
+		<div style="width: 100%; text-align: center;">
+			<input type="button" value="上一题" class="button" onclick="tabPrev1()"></input>
+			<input type="button" onclick="my_confirm()" class="button"
+				value="考试完成" /> <input type="button" value="下一题" class="button"
+				onclick="tabNext1()"></input>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var minutes = 0;
+		var seconds = 0;
+		var hours = 0;
+		function getjson(){
+			var radio = new Array();
+			var m = 0;
+			var n = 0;
+			var checkbox_num = parseInt(sessionStorage.checkbox_num);
+			var radio_num = parseInt(sessionStorage.radio_num);
+			var type = JSON.parse(sessionStorage.type);
+			for (var i = 0; i < type.length; i++){//根据type类型获取答案
+				if (type[i] == 2){
+					m = m + 1;
+					var checkbox_name = "checkbox_" + m;
+					var chkb_value = [];
+					$("input:checkbox[name=" + checkbox_name + "]:checked").each(function(){
+						chkb_value.push($(this).val());
+					});
+					radio[i] = "";
+					console.log(chkb_value);
+					for (var t = 0; t < chkb_value.length; t++)	{
+						radio[i] = radio[i] + chkb_value[t];
+					}
+				} else{
+					n = n + 1;
+					var radio_name = new String("radio_" + n);
+					radio[i] = $('input:radio[name=' + radio_name + ']:checked').val();
+				}
+			}
+			//数组转json串
+			var json = JSON.stringify(radio);
+			return json;
+		}
+		function my_confirm(){
+			var json = getjson();
+			var msg = "您真的答案是：" + json + ",是否确认提交";
+			if (confirm(msg) == true)
+			{
+				addtimes();
+				window.location.href = "result";
+				sessionStorage.json = json;
+			} else
+			{
+				return false;
+			}
+			//alert(sessionStorage.json);
+			//alert(sessionStorage.radio);
+		}
+
+		function addtimes() {
+			var UserName=sessionStorage.Username;
+			$.ajax({
+				url: "/addtimes",
+				type: "post",
+				data:{"UserName":UserName},
+				datatype: "json",
+				success: function () {
+					console.log("次数加1");
+				}
+			})
+		}
+
+		function time(){
+			$(function(){
+				$.ajax({
+					url: "/getExamTime",
+					type: "post",
+					datatype: "json",
+					success: function (data) {
+						var m = data.examTime;
+						var s = 00;
+						Et = setInterval(function(){
+							if (m >= 0){
+								if (s < 10){
+									$('#time').html("剩余时间：" + m + ':0' + s);
+								} else{
+									$('#time').html("剩余时间：" + m + ':' + s);
+								}
+								s--;
+								if (s < 0){
+									s = 59;
+									m--;
+								}
+								if (m == 0 && s < 1){
+									window.location.href = "result";
+									sessionStorage.json = getjson();
+								}
+							}
+						}, 1000)//每1000ms循环一次（其实就是计数器的作用）
+					}
+				})
+			})
+		}
+		
+		function timeCount(){
+			seconds = seconds + 1;
+			if (seconds >= 60){
+				seconds = 0;
+				minutes = minutes + 1;
+			}
+			if (minutes >= 60){
+				minutes = 0;
+				hours = hours + 1;
+			}
+			if (seconds < 10){
+				seconds_string = "0" + seconds.toString();
+			} else{
+				seconds_string = seconds.toString();
+			}
+
+			if (minutes < 10){
+				minutes_string = "0" + minutes.toString();
+			} else{
+				minutes_string = minutes.toString();
+			}
+
+			if (hours < 10){
+				hours_string = "0" + hours.toString();
+			} else{
+				hours_string = hours.toString();
+			}
+			html = hours_string + ":" + minutes_string + ":" + seconds_string;
+			$('#TimeCount').html(html);
+			t = setTimeout("timeCount()", 1000);
+		}
+		function stopCount(){
+			clearTimeout(t);
+			seconds = minutes = hours = 0;
+		}
+		function StopEt(){
+			clearInterval(Et);
+		}
+	</script>
+	<table class="coursetable" cellspacing="0" id="introduction">
+		<tr>
+			<th colspan="5">&nbsp&nbsp课程信息</th>
+		</tr>
+		<tr>
+			<td rowspan="5" style="border: 0px;; background-color: #FFFFFF"><img
+				src="img/shu.jpg" width="160px" height="160px" /></td>
+			<td style="background-color: #DFF3FC; color: #4A90E2">课程名称</td>
+			<td colspan="3"
+				style="text-align: left; padding-left: 90px; background-color: #FFFFFF">系统运维</td>
+		</tr>
+		<tr>
+			<td style="background-color: #DFF3FC; color: #4A90E2">课程体系</td>
+			<td colspan="3"
+				style="text-align: left; padding-left: 90px; background-color: #FFFFFF">运行管理</td>
+		</tr>
+		<tr>
+			<td style="background-color: #DFF3FC; color: #4A90E2">学时</td>
+			<td
+				style="text-align: left; padding-left: 90px; background-color: #FFFFFF">30.0</td>
+			<td style="background-color: #DFF3FC; color: #4A90E2">考试类型</td>
+			<td
+				style="text-align: left; padding-left: 90px; background-color: #FFFFFF">在线考试</td>
+		</tr>
+		<tr>
+			<td style="background-color: #DFF3FC; color: #4A90E2">学分</td>
+			<td
+				style="text-align: left; padding-left: 90px; background-color: #FFFFFF">4.0</td>
+			<td style="background-color: #DFF3FC; color: #4A90E2">通过分数</td>
+			<td
+				style="text-align: left; padding-left: 90px; background-color: #FFFFFF">60</td>
+		</tr>
+		<tr>
+			<td style="background-color: #DFF3FC; color: #4A90E2">章节数</td>
+			<td
+				style="text-align: left; padding-left: 90px; background-color: #FFFFFF">9</td>
+			<td style="background-color: #DFF3FC; color: #4A90E2">课程形式</td>
+			<td
+				style="text-align: left; padding-left: 90px; background-color: #FFFFFF">文档类</td>
+		</tr>
+		<tr>
+			<td colspan="5"
+				style="text-align: center; border-left: 0px; background-color: #DFF3FC; color: #4A90E2">课程简介</td>
+		</tr>
+		<tr>
+			<td colspan="5" margin-left="20"
+				style="color: #9B9B9B; font-size: 16px; border-left: 0px; text-align: left; padding: 10px 20px 10px 20px;; background-color: #FFFFFF">系统运维类似于系统维护，前者更加侧重于保障系统正常运行，运维有运行和维护两层含义。对于一个系统，有时出错我们无法预知，系统越复杂，其维护难度越大，为了减少损失，我们尽可能地去预防各种错误，对于突发情况，尽可能地去修复。</td>
+		</tr>
+		<tr>
+			<td colspan="5"
+				style="text-align: center; border-left: 0px; background-color: #DFF3FC; border-radius: 4px;"><input
+				type="button" value="关闭" class="button1" a href="javascript:void(0)"
+				onclick="document.getElementById('introduction').style.display='none';document.getElementById('aa').style.display='none';"></td>
+		</tr>
+	</table>
+	<div id="aa" class="white_content1"></div>
+	<div id="fade" class="black_overlay"></div>
+</body>
+</html>
+

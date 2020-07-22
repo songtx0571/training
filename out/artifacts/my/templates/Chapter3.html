@@ -1,0 +1,197 @@
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+.button {
+	display: inline-block;
+	background: #44ACFF;
+	border: 1px solid #44ACFF;
+	border-radius: .3em;
+	color: white;
+	width: 70px;
+	height: 28px;
+	font-size: 14px;
+	outline: none;
+	cursor: pointer;
+}
+
+.button:active {
+	background-color: #E27635;
+	border-color: #E27635;
+}
+
+#centreRight {
+	width: 990px;
+	height: 888px;
+	border-radius: 4px;
+	margin-top: 78px;
+	border: 1px #979797 solid;
+}
+
+#content {
+	width: 100%;
+	height: auto;
+}
+
+#title {
+	width: 930px;
+	height: auto;
+	font-size: 16px;
+	margin-left: 40px;
+	margin-top: 9px;
+}
+
+#video {
+	width: 930px;
+	height: 26px;
+	margin-top: 14px;
+}
+
+#logo2 {
+	float: left;
+}
+
+#Learncontent {
+	width: 930px;
+	height: auto;
+	font-size: 12px;
+	line-height: 18px;
+	color: #4A4A4A;
+	text-align: left;
+}
+
+.hiddendiv {
+	width: 100%;
+	height: auto;
+	display: none;
+}
+
+#B1 {
+	cursor: pointer;
+}
+
+#B2 {
+	cursor: pointer;
+}
+
+#B3 {
+	cursor: pointer;
+}
+
+#B4 {
+	cursor: pointer;
+	flaot: left;
+	width: 16px;
+	height: 16px;
+}
+
+.B5 {
+	cursor: pointer;
+	flaot: left;
+	width: 16px;
+	height: 16px;
+	margin-top: 10px
+}
+
+#T1 {
+	font-size: 14px;
+	width: 100%;
+	margin-top: 10px
+}
+
+.T2 {
+	font-size: 14px;
+	width: 100%;
+	margin-top: 10px;
+	border-top: 1px #F5A623 dashed;
+}
+
+#subT1 {
+	width: 160px;
+	font-size: 10px;
+	margin-left: 30px;
+	line-height: 25px;
+	display: none;
+}
+
+#subT2 {
+	width: 160px;
+	font-size: 10px;
+	margin-left: 30px;
+	line-height: 25px;
+	display: none;
+}
+</style>
+<script type="text/javascript">
+	function test(obj)
+	{
+		var div1 = document.getElementById("div1");
+		if (div1.style.display == "block")
+		{
+			div1.style.display = "none";
+			obj.src = "img/open icon.png";
+		} else
+		{
+			div1.style.display = "block";
+			obj.src = "img/close icon.png";
+		}
+	}
+</script>
+<script>
+	function zhankai()
+	{
+		var div1 = document.getElementById("div1");
+		var b1 = document.getElementById("B1");
+		div1.style.display = "block";
+		b1.src = "img/close icon.png";
+	}
+</script>
+<script>
+	function shousuo()
+	{
+		var div1 = document.getElementById("div1");
+		var b1 = document.getElementById("B1");
+		div1.style.display = "none";
+		b1.src = "img/open icon.png";
+	}
+</script>
+</head>
+<body>
+	<div>
+		<div
+			style="width: 100%; height: 70px; line-height: 58px; text-align: center; color: #4A4A4A; font-size: 20px;">脱硫技术问答</div>
+		<div
+			style="width: 100%; height: 26px; text-align: left; color: #F5A623; font-size: 18px; border-bottom: 1px dashed rgba(74, 144, 226, 0.60);">&nbsp&nbsp&nbsp课程目标</div>
+		<div
+			style="width: 100%; height: 41px; text-align: left; color: #4A4A4A; font-size: 12px; line-height: 28px; margin-left: 40px">练习脱硫技术问答1100题</div>
+		<div
+			style="width: 100%; height: 26px; text-align: left; color: #F5A623; font-size: 18px; border-bottom: 1px dashed rgba(74, 144, 226, 0.60);">&nbsp&nbsp&nbsp建议学习时间</div>
+		<div
+			style="width: 100%; height: 20px; text-align: left; color: #4A4A4A; font-size: 12px; line-height: 28px; margin-left: 40px">10小时</div>
+		<div
+			style="width: 100%; height: 47px; border-bottom: 1px dashed rgba(74, 144, 226, 0.60);">
+			<div
+				style="width: 70%; height: 47px; text-align: left; color: #F5A623; font-size: 18px; line-height: 60px; float: left;">&nbsp&nbsp&nbsp学习内容</div>
+			<div
+				style="width: 25%; height: 47px; float: right; text-align: right; line-height: 50px; margin-right: 10px;">
+				<input type="button" class="button" value="展开" onclick="zhankai();" />&nbsp
+				<input type="button" class="button" value="收起" onclick="shousuo();" />
+			</div>
+		</div>
+		<div id="content">
+			<div id="title">
+				一、脱硫技术问答&nbsp&nbsp&nbsp
+				<div id="div1">
+					<div id="video">
+						<img src="img/视频.png" width="24px" height="24px" id="logo2" />&nbsp&nbsp&nbsp教师讲解：脱硫技术问答
+					</div>
+					<div id="Learncontent">
+						<iframe src="pdf/1100.pdf" width="930" height="600"></iframe>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

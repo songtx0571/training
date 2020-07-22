@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<head>
+    <title>杭州浩维管理平台</title>
+    <meta name="viewport" content="width=1600,height=1600,maximum-scale=1,user-scalable=no">
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <script type="text/javascript" src="layui/layui.all.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/polling.js"></script>
+    <script src="../js/week/treeView.js"></script>
+    <script src="../hopetree/tree.js"></script>
+    <script src="../hopetree/hope-tree.js"></script>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/Inform.css" >
+    <!--easyui-->
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+    <script type="text/javascript" src="js/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+    <link href="../css/logo.css" rel="stylesheet"/>
+    <style>
+
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.get('/getLoginInf',function(data,status){
+                var body = document.getElementsByTagName("body");
+                var div = document.getElementById("polling");
+                var userName=data[0];
+                var password=data[1];
+                var bool=data[2];
+                if(bool=='68'){
+                    div.innerHTML = '<iframe id="idFrame" name="idFrame" src="http://115.236.58.8/guide/loginPage?UserName='+userName+'&Password='+password+'" frameborder="0" style="width:100%;height:1600px;margin:0px 0px;"></iframe>';
+                    $("#polling").css("width","100%");
+                    $("#polling").css("height","1240px");
+                }else{
+                    div.innerHTML = '<iframe id="idFrame" name="idFrame" src="http://115.236.58.8/guide/loginPage?UserName='+userName+'&Password='+password+'" frameborder="0" style="width:1200px;height:1600px;margin:0px 0px;"></iframe>';
+                    $("#polling").css("width","1600px");
+                    $("#polling").css("height","1680px");
+                }
+                //document.body.appendChild(div);
+            });
+        });
+    </script>
+</head>
+
+<body leftmargin=0 topmargin=0 width=100% height=100%>
+<div style="width: 100%;height: 80px;margin: 0 auto;color: #F5F4F5;min-width: 100%;">
+
+    <div id="nav" style="width: 100%;">
+        <img id="logo" src="img/logo.png" width="64px" height="64px"/>
+        <span id="text">杭州浩维管理平台</span>
+
+        <ul>
+            <li><a href="/logout" title="注销账户" target="_self">注销</a></li>
+            <li><a href="Course" title="我的课程" target="_self">我的课程</a></li>
+            <li><a href="/HomeController/home" title="日志和周报" target="_self">日志和周报</a></li>
+            <li id='li6'><a href="/pollingSystem" target="_self" style="color: #3D96D6">运行引导</a></li>
+            <li id='li5'><a href="/Attendance" target="_self">考勤系统</a></li>
+            <li id='li4'><a href="/Employeemanage" target="_self">员工管理</a></li>
+            <li id='li3'><a href="/exammanage" target="_self">考试管理</a></li>
+            <li id='li1'><a href="/exercisemanage" target="_self" >题库管理</a></li>
+            <li id='li2'><a href="/Inform" target="_self">通知管理</a></li>
+            <li><a href="/index" target="_self">首页</a></li>
+        </ul>
+    </div>
+</div>
+<div id="polling" >
+
+</div>
+</body>
+</html>
+
+

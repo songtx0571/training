@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #banner-2{
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            outline: 0;
+            -webkit-overflow-scrolling: touch;
+            filter: alpha(opacity=20);
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+        }
+        #white_content1-labor-2 {
+            display: none;
+            position: absolute;
+            border-radius: 4px;
+            top: 300px;
+            left: 550px;
+            width: 800px;
+            height: 580px;
+            background: #FFFFFF;
+            box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);
+            z-index: 1002;
+            /*overflow: none;*/
+        }
+    </style>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="css/Inform.css" >
+    <script type="text/javascript" src="layui/layui.all.js"></script>
+    <script type="text/javascript" src="layui/layui.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="js/inf.js"></script>
+    <script>
+        checkPro();
+    </script>
+<!--    <script>-->
+<!--        userDefined();-->
+<!--    </script>-->
+</head>
+<body>
+    <div class="tab-content tab-content-show" >
+        <form  style="text-align:center;margin-top: 20px;margin-left: 10px;" >
+            <table class="itable-lee"   style="border-collapse: collapse;">
+                <tr>
+                    <td class="lee-width">通知属性</td>
+                    <td class="layui-form">
+                        <form class="layui-form layui-form-pane" action="">
+<!--                            内部结构都一样，值得注意的是 复选框/开关/单选框 这些组合在该风格下需要额外添加 pane属性（否则会看起来比较别扭），如：-->
+                            <div class="layui-form-item" pane>
+                                <label class="layui-form-label"></label>
+                                <div class="layui-input-block" id="iRadio">
+                                    <input type="radio" name="iProperty" value="项目部通知" id="xiangmubu" title="项目部通知" lay-filter="inf">
+                                    <input type="radio" name="iProperty" value="类型通知" id="leixing" title="类型通知" lay-filter="inf" disabled>
+                                </div>
+                            </div>
+                        </form></td></tr>
+                <tr>
+                    <td class="iSelect lee-width" style="display: none">项目部通知</td>
+                    <td class="layui-form iSelect" style="display: none">
+                        <form class="layui-form layui-form-pane" action="">
+                            <div class="layui-form-item iSelect" style="display: none">
+<!--                                <label class="layui-form-label"></label>-->
+                                <div class="layui-input-block" id="iSelect">
+                                    <select name="department" id="department" lay-verify="required">
+                                        <option value=""></option>
+<!--                                        <option value="1">嘉爱斯运维</option>-->
+<!--                                        <option value="2">泰爱斯运维</option>-->
+<!--                                        <option value="3">浦江运维</option>-->
+<!--                                        <option value="4">临江运维</option>-->
+                                    </select>
+                                </div>
+                            </div>
+                        </form></td>
+                    <td class="iCheck lee-width" style="display: none">类型通知</td>
+                    <td class="layui-form iCheck" style="display: none">
+                        <form class="layui-form layui-form-pane" action="">
+                            <div class="layui-form-item iCheck" style="display: none">
+<!--                                <label class="layui-form-label"></label>-->
+                                <div class="layui-input-block" id="iCheck" lay-verify="check">
+                                    <input type="checkbox" name="compSystem" title="公司制度" value="1">
+                                    <input type="checkbox" name="runRule" title="运维规程" value="2">
+<!--                                    <a style="display: inline" onclick="addInformType()">-->
+<!--                                        <img height="15px" src="img/and.png">-->
+<!--                                    </a>-->
+<!--                                    <a style="display: inline" onclick="">-->
+<!--                                        <img height="15px" src="img/reduce.png">-->
+<!--                                    </a>-->
+
+                                </div>
+<!--                                <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">-->
+<!--                                    <button class="layui-btn layui-btn-normal" data-method="notice">自定义类型</button>-->
+<!--                                </div>-->
+                            </div>
+                        </form>
+<!--                        <a onclick="userDefinedType();">qiguai</a>-->
+<!--                        <button class="layui-btn layui-btn-normal" onclick="userDefinedType()">自定义类型</button>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lee-width">标题</td>
+                    <td><input type="text" name="iTitle" id="iTitle"></td>
+                </tr>
+                <tr>
+                    <td class="lee-width">内容</td>
+                    <td><input type="text" name="iContent" id="iContent"></td>
+                </tr>
+                <tr>
+                    <td class="lee-width">上传</td>
+                    <td><input type="file" value="上传文件" id="files" name="files" style="margin-top: 10px"></td>
+                </tr>
+            </table>
+        </form>
+
+        <input type="button" class="button" value="取消" style="margin-top: 20px;margin-left:140px;width: 64px"
+               onclick="parent.layer.closeAll();" />
+        <input type="button" class="button" value="确定" style="width: 64px;margin-left: 20px" onclick="infObj.insertinf();" />
+    </div>
+    <script>
+        //Demo
+        layui.use('form', function(){
+            var form = layui.form;
+
+            form.render();
+            $.ajax({
+                url: "/getProjectTeam",//请求地址
+                datatype: "json",//数据格式
+                type: "post",//请求方式
+                success: function (data) {
+                    console.log(data);
+                    var html = '';
+                    if (data.length == 0){
+                        html += "<option value=''>请添加数据</option>";
+                        $("#department").empty().append(html);
+                    }else{
+                        html += "<option value=''>请选择</option>";
+                        for(var i=0;i<data.length;i++){
+                            html += '<option value="'+data[i].id+'">'+data[i].projectTeam+'</option>';
+                        }
+                        // $.each(data,function (k,v) {
+                        //     html += "<option value='"+v.Id+"'>"+v.ProjectTeam+"</option>"
+                        // })
+                        $("#department").empty().append(html);
+                    }
+                    form.render();
+
+                },
+                error:function (data) {
+                    layui.error(data);
+                }
+            });
+
+            form.on('radio(inf)',function(data){
+                var val=data.value;
+                    if ($('#iRadio input[name="iProperty"]:checked ').val() == "项目部通知") {
+                        $(".iSelect").show();
+                        $(".iCheck").hide();
+                        $('#iCheck input[name="compSystem"]').prop("checked",false);
+                        $('#iCheck input[name="runRule"]').prop("checked",false);
+                        // $('#iCheck input[name="alInform"]').prop("checked",false);
+                        form.render();
+                        // var check1= $('#iCheck input[name="alInform"]:checked').val();
+                        // alert(check1);
+
+                    }
+                    else {
+                        $(".iSelect").hide();
+
+                        $('#iCheck input[name="compSystem"]').prop("checked",true);
+                        $('#iCheck input[name="runRule"]').prop("checked",true);
+                        // $('#iCheck input[name="alInform"]').prop("checked",true);
+
+                        $(".iCheck").show();
+
+                        form.render();
+                    }
+            }
+
+            );
+            form.on('select(required)',function(data){
+                var val=data.value;
+                form.render();
+            });
+            form.on('checkbox(check)',function(data){
+                var val=data.value;
+                form.render();
+            });
+
+
+
+                // if ($('#iRadio input[name="iProperty"]:checked ').val() == "项目部通知") {
+                //     $(".iSelect").hide();
+                // }
+                // else {
+                //     $(".iSelect").show();
+                // }
+                form.render();
+
+
+            //监听提交
+            // form.on('submit(formDemo)', function(data){
+            //     layer.msg(JSON.stringify(data.field));
+            //     return false;
+            // });
+        });
+    </script>
+
+</body>
+</html>
+
+

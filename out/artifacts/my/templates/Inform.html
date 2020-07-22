@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>杭州浩维管理平台</title>
+	<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <script type="text/javascript" src="layui/layui.all.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/inf.js"></script>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script>
+        additable();
+    </script>
+    <link rel="stylesheet" href="css/Inform.css" >
+	
+	<link href="../css/logo.css" rel="stylesheet"/>
+</head>
+<style>
+    #banner-2{
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        outline: 0;
+        -webkit-overflow-scrolling: touch;
+        filter: alpha(opacity=20);
+        background-color: rgba(0,0,0,0.5);
+        display: none;
+    }
+    #white_content1-labor-2 {
+        display: none;
+        position: absolute;
+        border-radius: 4px;
+        top: 300px;
+        left: 550px;
+        width: 800px;
+        height: 580px;
+        background: #FFFFFF;
+        box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);
+        z-index: 1002;
+        /*overflow: none;*/
+    }
+    th .layui-table-cell{
+        text-align: center;
+    }
+    th .layui-table-cell{
+        text-align: center;
+    }
+</style>
+<body leftmargin=0 topmargin=0 width=100% height=100%>
+<div id="top">
+   
+    <div id="nav">
+        <img id="logo" src="img/logo.png" width="64px" height="64px"/>
+        <span id="text">杭州浩维管理平台</span>
+    
+        <ul>
+            <li><a href="/logout" title="注销账户" target="_self">注销</a></li>
+            <li><a href="Course" title="我的课程" target="_self">我的课程</a></li>
+			<li><a href="/HomeController/home" title="日志和周报" target="_self">日志和周报</a></li>
+            <li id='li6'><a href="/pollingSystem" target="_self">运行引导</a></li>
+            <li id='li5'><a href="/Attendance" target="_self">考勤系统</a></li>
+            <li id='li4'><a href="/Employeemanage" target="_self">员工管理</a></li>
+            <li id='li3'><a href="/exammanage" target="_self">考试管理</a></li>
+            <li id='li1'><a href="/exercisemanage" target="_self" >题库管理</a></li>
+            <li id='li2'><a href="/Inform" target="_self" style="color: #3D96D6">通知管理</a></li>
+            <li><a href="/index" target="_self">首页</a></li>
+        </ul>
+    </div>
+</div>
+<div id="centre"></div>
+<div id="bottom">
+    <div class="site-demo-button"  id="layerDemo" style="margin-bottom: 0;text-align: left;padding-left: 20px;font-size: 16px">
+        搜索通知<input id="dim"  type="text" onkeyup="loodtable()" style="
+         line-height:30px;
+        border-style:none;
+        outline: none;
+        border: 1px solid #9B9B9B;
+        border-radius: 3px;margin-left: 20px;padding-left: 10px">
+        <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal button">添加</button>
+    </div>
+<!--    <div id="white_content1-labor-2">真是奇了怪了</div>-->
+<!--    <div id="banner-2" onclick="closeBannerType()"></div>-->
+    <div style="margin: auto">
+        <table class="layui-hide" id="test" lay-filter="demo" ></table>
+    </div>
+    <script type="text/html" id="zizeng">
+        {{d.LAY_TABLE_INDEX+1}}
+    </script>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="detail" style="background: #44ACFF">查看</a>
+        <a class="layui-btn layui-btn-xs"  data-type="auto"  lay-event="edit" style="background: #44ACFF" id="tttt">修改</a>
+        <a class="layui-btn layui-btn-xs" lay-event="del" style="background: #44ACFF">删除</a>
+    </script>
+
+    <div id="updateinform" class="white_content1" style="width:430px;height: 430px;">
+        <div style="font-size: 18px; line-height: 32px;">
+            <a style="margin: 20px auto;padding-left: 20px">修改通知</a>
+        </div>
+        <div class="tab-content tab-content-show" >
+            <form  style="padding-left: 20px;margin-top: 20px;">
+                <table class="itable-update" cellspacing="0"  lay-filter="itable-update">
+                    <tr >
+                        <td>通知属性</td>
+                        <td class="layui-form">
+                            <form class="layui-form layui-form-pane" action="">
+                                <!--                            内部结构都一样，值得注意的是 复选框/开关/单选框 这些组合在该风格下需要额外添加 pane属性（否则会看起来比较别扭），如：-->
+                                <div class="layui-form-item" pane>
+                                    <label class="layui-form-label"></label>
+                                    <div class="layui-input-block" id="uRadio">
+                                        <input type="radio" name="uProperty" id="xmb" value="项目部通知" title="项目部通知" lay-filter="inf">
+                                        <input type="radio" name="uProperty" id="lx" value="类型通知" title="类型通知" lay-filter="inf">
+                                    </div>
+                                </div>
+                            </form></td>
+<!--                        <td hidden><input type="text" name="uRadio" id="uRadio" ></td>-->
+                    </tr>
+                    <tr class="uSelect" style="display: none">
+                        <td>项目部通知</td>
+                        <td class="layui-form uSelect" style="display: none">
+                            <form class="layui-form layui-form-pane" action="">
+                                <div class="layui-form-item uSelect" style="display: none">
+                                    <!--                                <label class="layui-form-label"></label>-->
+                                    <div class="layui-input-block" id="uSelect" style="width: 120px!important;">
+                                        <select name="department" id="department" lay-verify="required">
+                                            <option value=""></option>
+<!--                                            <option id="1" value="1">嘉爱斯运维</option>-->
+<!--                                            <option id="2" value="2">泰爱斯运维</option>-->
+<!--                                            <option id="3" value="3">浦江运维</option>-->
+<!--                                            <option id="4" value="4">临江运维</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </form></td>
+<!--                        <td hidden><input type="text" name="" id="" ></td>-->
+
+                    </tr>
+                    <tr class="uCheck" style="display: none">
+                        <td>类型通知</td>
+                        <td class="layui-form uCheck" style="display: none">
+                            <form class="layui-form layui-form-pane" action="">
+                                <div class="layui-form-item uCheck" style="display: none">
+                                    <!--                                <label class="layui-form-label"></label>-->
+                                    <div class="layui-input-block" id="uCheck" lay-verify="check">
+                                        <input type="checkbox" name="compSystem" title="公司制度" value="1">
+                                        <input type="checkbox" name="runRule" title="运维规程" value="2">
+<!--                                        <a style="display: inline" onclick="">-->
+<!--                                            <img height="15px" src="img/and.png">-->
+<!--                                        </a>-->
+<!--                                        <a style="display: inline" onclick="">-->
+<!--                                            <img height="15px" src="img/reduce.png">-->
+<!--                                        </a>-->
+                                        <!--                                    <input type="checkbox" name="alInform" title="全员通知" value="3">-->
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+<!--                        <td hidden><input type="text" name="" id="" ></td>-->
+                    </tr>
+                    <tr >
+                        <td>标题</td>
+                        <td hidden><input type="text" name="uid" id="uid" ></td>
+                        <td><input type="text" name="uTitle" id="uTitle"></td>
+                    </tr>
+                    <tr>
+                        <td>内容</td>
+                        <td><input type="text" name="uContent" id="uContent"></td>
+                    </tr>
+                    <tr>
+                        <td>上传</td>
+                        <td><input type="text" name="nfile" id="nfile" disabled="disabled" style="background-color: white">
+                            <input type="file" value="上传文件" id="ufiles" name="ufiles"></td>
+                    </tr>
+                </table>
+            </form>
+            <input type="button" class="button" value="取消" style="margin-top: 20px;margin-left:0;width: 64px"
+                   onclick="document.getElementById('updateinform').style.display='none'" />
+            <input type="button" class="button" value="确定" style="width: 64px;margin-left: 20px" onclick="infObj.updateinf()" />
+        </div>
+    </div>
+</div>
+<script>loodtable()</script>
+<script>
+
+    layui.use('form', function(){
+        var form = layui.form;
+
+        form.render();
+
+        $.ajax({
+            url: "/getProjectTeam",//请求地址
+            datatype: "json",//数据格式
+            type: "post",//请求方式
+            success: function (data) {
+                console.log(data);
+                var html = '';
+                if (data.length == 0){
+                    html += "<option value=''>请添加数据</option>";
+                    $("#department").empty().append(html);
+                }else{
+                    html += "<option value=''>请选择</option>";
+                    for(var i=0;i<data.length;i++){
+                        html += '<option id="'+data[i].id+'" value="'+data[i].id+'">'+data[i].projectTeam+'</option>';
+                    }
+                    // $.each(data,function (k,v) {
+                    //     html += "<option value='"+v.Id+"'>"+v.ProjectTeam+"</option>"
+                    // })
+                    $("#department").empty().append(html);
+                }
+                form.render();
+
+            },
+            error:function (data) {
+                layui.error(data);
+            }
+        });
+
+        form.on('radio(inf)',function(data){
+                var val=data.value;
+                if ($('#uRadio input[name="uProperty"]:checked ').val() == "项目部通知") {
+                    $(".uSelect").show();
+                    $(".uCheck").hide();
+                    $('#uCheck input[name="compSystem"]').prop("checked",false);
+                    $('#uCheck input[name="runRule"]').prop("checked",false);
+                    // $('#iCheck input[name="alInform"]').prop("checked",false);
+                    form.render();
+                    // var check1= $('#iCheck input[name="alInform"]:checked').val();
+                    // alert(check1);
+
+                }
+                else {
+                    $(".uSelect").hide();
+
+                    $('#uCheck input[name="compSystem"]').prop("checked",true);
+                    $('#uCheck input[name="runRule"]').prop("checked",true);
+                    // $('#iCheck input[name="alInform"]').prop("checked",true);
+
+                    $(".uCheck").show();
+
+                    form.render();
+                }
+            }
+
+        );
+        form.on('select(required)',function(data){
+            var val=data.value;
+            form.render();
+        });
+        form.on('checkbox(check)',function(data){
+            var val=data.value;
+            form.render();
+        });
+
+
+
+        // if ($('#iRadio input[name="iProperty"]:checked ').val() == "项目部通知") {
+        //     $(".iSelect").hide();
+        // }
+        // else {
+        //     $(".iSelect").show();
+        // }
+        form.render();
+
+
+        //监听提交
+        // form.on('submit(formDemo)', function(data){
+        //     layer.msg(JSON.stringify(data.field));
+        //     return false;
+        // });
+    });
+</script>
+
+
+</body>
+<script type="text/javascript" src="js/question.js"></script>
+<script type="text/javascript" src="js/Exercise.js"></script>
+<script type="text/javascript" src="js/inf.js"></script>
+</html>
+
+

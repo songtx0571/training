@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>changeCoeShow</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="layui/layui.all.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+
+</head>
+
+<body>
+<form class="layui-form" action="" lay-filter="changeCoe">
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 150px">餐饮补贴系数</label>
+        <div class="layui-input-inline">
+            <input type="text" name="canbuxishu" id="canbuxishu" value="" lay-verify="title" autocomplete="off" placeholder="请输入" class="layui-input">
+        </div>
+        <div>
+            <button type="button" class="layui-btn layui-btn-normal" data-method="offset" onclick="changeC1();" data-type="auto" id="changeCoe1">修改</button>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 150px">加班工资系数</label>
+        <div class="layui-input-inline">
+            <input type="text" name="jiabanxishu" id="jiabanxishu" value="" lay-verify="title" autocomplete="off" placeholder="请输入" class="layui-input">
+        </div>
+        <div>
+            <button type="button" class="layui-btn layui-btn-normal" data-method="offset" onclick="changeC2();" data-type="auto" id="changeCoe2">修改</button>
+        </div>
+    </div>
+    </div>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        注意：修改系数仅对本月和今后的月份生效</p>
+</form>
+<script>
+
+    var now = new Date();
+    var todayYear = now.getFullYear().toString();
+    var monthNum = now.getMonth()+1;
+    var todayMonth;
+    var today=now.getDate();
+
+    console.log(today);
+    if(monthNum<10){
+        todayMonth = "0"+monthNum.toString();
+    }
+    else{
+        todayMonth = monthNum.toString();
+    }
+    var cycle = todayYear+"-"+todayMonth;
+    console.log(cycle)
+
+    $.ajax({
+        url: "/getCoe",//请求地址
+        data:{"cycle":cycle},
+        datatype: "json",//数据格式
+        async:false,
+        type: "post",//请求方式
+        success: function (data) {   //如何发送成功
+            console.log(data);
+            if(!data.data){
+                $.ajax({
+                    url: "/getCoe2",//请求地址
+                    data:{"cycle":cycle},
+                    datatype: "json",//数据格式
+                    async:false,
+                    type: "post",//请求方式
+                    success: function (data) {   //如何发送成功
+                        console.log(data);
+                        var canbuxishu = data[0].canbuxishu;
+                        var jiabanxishu = data[0].jiabanxishu;
+                        layui.use('form',function(){
+                            var form = layui.form;
+                            form.val('changeCoe', {
+                                "canbuxishu": canbuxishu // "name": "value"
+                                ,"jiabanxishu": jiabanxishu
+                            });
+                            form.render();
+                        })
+
+
+                        $.ajax({
+                            url: "/updateXishu",//请求地址
+                            data:{"cycle":cycle,"canbuxihsu":canbuxishu,"jiabanxishu":jiabanxishu},
+                            datatype: "json",//数据格式
+                            async:false,
+                            type: "post",//请求方式
+                            success: function (data) {   //如何发送成功
+
+                            }
+                        });
+
+                    }
+                });
+            }
+            else{
+                var canbuxishu = data[0].canbuxishu;
+                var jiabanxishu = data[0].jiabanxishu;
+                layui.use('form',function(){
+                    var form = layui.form;
+                    form.val('changeCoe', {
+                        "canbuxishu": canbuxishu // "name": "value"
+                        ,"jiabanxishu": jiabanxishu
+                    });
+                    form.render();
+                })
+            }
+        }
+    });
+    function changeC1(){
+        var now = new Date();
+        var todayYear = now.getFullYear().toString();
+        var monthNum = now.getMonth()+1;
+        var todayMonth;
+        if(monthNum<10){
+            todayMonth = "0"+monthNum.toString();
+        }
+        else{
+            todayMonth = monthNum.toString();
+        }
+        var cycle = todayYear+"-"+todayMonth;
+        $.ajax({
+            url: "/getCoe",//请求地址
+            data:{"cycle":cycle},
+            datatype: "json",//数据格式
+            async:false,
+            type: "post",//请求方式
+            success: function (data) {   //如何发送成功
+                console.log(data);
+
+                if(!data.data){
+                    $.ajax({
+                        url: "/getCoe2",//请求地址
+                        data:{"cycle":cycle},
+                        datatype: "json",//数据格式
+                        async:false,
+                        type: "post",//请求方式
+                        success: function (data) {   //如何发送成功
+                            console.log(data);
+                            var jiabanxishu = data[0].jiabanxishu;
+                            var canbuNew = $("#canbuxishu").val();
+                            $.ajax({
+                                url: "/setCanbu",//请求地址
+                                data:{
+                                    "canbuxishu":canbuNew,
+                                    "cycle":cycle,
+                                    "jiabanxishu":jiabanxishu,
+                                },
+                                datatype: "json",//数据格式
+                                type: "post",//请求方式
+                                async:false,
+                                success: function (data) {   //如何发送成功
+
+                                    $.ajax({
+                                        url: "/setCanbuCopy",//请求地址
+                                        data:{
+                                            "canbuxishu":canbuNew,
+                                            "jiabanxishu":jiabanxishu,
+                                        },
+                                        datatype: "json",//数据格式
+                                        type: "post",//请求方式
+                                        async:false,
+                                        success: function (data) {   //如何发送成功
+                                            alert("修改成功");
+                                            $.ajax({
+                                                url: "/getCoe",//请求地址
+                                                datatype: "json",//数据格式
+                                                async:false,
+                                                type: "post",//请求方式
+                                                success: function (data) {   //如何发送成功
+                                                    console.log(data);
+                                                    var canbuxishu = data[0].canbuxishu;
+                                                    layui.use('form',function(){
+                                                        var form = layui.form;
+                                                        form.val('changeCoe', {
+                                                            "canbuxishu": canbuxishu // "name": "value"
+                                                        });
+                                                        form.render();
+                                                    })
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+                else{
+                    var jiabanxishu = data[0].jiabanxishu;
+                    var canbuNew = $("#canbuxishu").val();
+                    $.ajax({
+                        url: "/setCanbu",//请求地址
+                        data:{
+                            "canbuxishu":canbuNew,
+                            "cycle":cycle,
+                            "jiabanxishu":jiabanxishu,
+                        },
+                        datatype: "json",//数据格式
+                        type: "post",//请求方式
+                        async:false,
+                        success: function (data) {   //如何发送成功
+
+                            $.ajax({
+                                url: "/setCanbuCopy",//请求地址
+                                data:{
+                                    "canbuxishu":canbuNew,
+                                    "jiabanxishu":jiabanxishu,
+                                },
+                                datatype: "json",//数据格式
+                                type: "post",//请求方式
+                                async:false,
+                                success: function (data) {   //如何发送成功
+                                    alert("修改成功");
+                                    $.ajax({
+                                        url: "/getCoe",//请求地址
+                                        datatype: "json",//数据格式
+                                        async:false,
+                                        type: "post",//请求方式
+                                        success: function (data) {   //如何发送成功
+                                            console.log(data);
+                                            var canbuxishu = data[0].canbuxishu;
+                                            layui.use('form',function(){
+                                                var form = layui.form;
+                                                form.val('changeCoe', {
+                                                    "canbuxishu": canbuxishu // "name": "value"
+                                                });
+                                                form.render();
+                                            })
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    }
+    function changeC2(){
+        var now = new Date();
+        var todayYear = now.getFullYear().toString();
+        var monthNum = now.getMonth()+1;
+        var todayMonth;
+        if(monthNum<10){
+            todayMonth = "0"+monthNum.toString();
+        }
+        else{
+            todayMonth = monthNum.toString();
+        }
+        var cycle = todayYear+"-"+todayMonth;
+        $.ajax({
+            url: "/getCoe",//请求地址
+            data:{"cycle":cycle},
+            datatype: "json",//数据格式
+            async:false,
+            type: "post",//请求方式
+            success: function (data) {   //如何发送成功
+                console.log(data);
+
+                if(!data.data){
+                    $.ajax({
+                        url: "/getCoe2",//请求地址
+                        data:{"cycle":cycle},
+                        datatype: "json",//数据格式
+                        async:false,
+                        type: "post",//请求方式
+                        success: function (data) {   //如何发送成功
+                            console.log(data);
+                            var canbuxishu = data[0].canbuxishu;
+                            var jiabanxishu = $("#jiabanxishu").val();
+                            $.ajax({
+                                url: "/setJbxs",//请求地址
+                                data:{
+                                    "jiabanxishu":jiabanxishu,
+                                    "cycle":cycle,
+                                    "canbuxishu":canbuxishu,
+                                },
+                                datatype: "json",//数据格式
+                                type: "post",//请求方式
+                                async:false,
+                                success: function (data) {   //如何发送成功
+
+                                    $.ajax({
+                                        url: "/setJbxsCopy",//请求地址
+                                        data:{
+                                            "jiabanxishu":jiabanxishu,
+                                            "canbuxishu":canbuxishu,
+                                        },
+                                        datatype: "json",//数据格式
+                                        type: "post",//请求方式
+                                        async:false,
+                                        success: function (data) {   //如何发送成功
+                                            alert("修改成功");
+                                            $.ajax({
+                                                url: "/getCoe",//请求地址
+                                                datatype: "json",//数据格式
+                                                async:false,
+                                                type: "post",//请求方式
+                                                success: function (data) {   //如何发送成功
+                                                    console.log(data);
+                                                    var jiabanxishu = data[0].jiabanxishu;
+                                                    layui.use('form',function(){
+                                                        var form = layui.form;
+                                                        form.val('changeCoe', {
+                                                            "jiabanxishu": jiabanxishu // "name": "value"
+                                                        });
+                                                        form.render();
+                                                    })
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+                else{
+                    var canbuxishu = data[0].canbuxishu;
+                    var jiabanxishu = $("#jiabanxishu").val();
+                    $.ajax({
+                        url: "/setJbxs",//请求地址
+                        data:{
+                            "jiabanxishu":jiabanxishu,
+                            "cycle":cycle,
+                            "canbuxishu":canbuxishu,
+                        },
+                        datatype: "json",//数据格式
+                        type: "post",//请求方式
+                        async:false,
+                        success: function (data) {   //如何发送成功
+
+                            $.ajax({
+                                url: "/setJbxsCopy",//请求地址
+                                data:{
+                                    "jiabanxishu":jiabanxishu,
+                                    "canbuxishu":canbuxishu,
+                                },
+                                datatype: "json",//数据格式
+                                type: "post",//请求方式
+                                async:false,
+                                success: function (data) {   //如何发送成功
+                                    alert("修改成功");
+                                    $.ajax({
+                                        url: "/getCoe",//请求地址
+                                        datatype: "json",//数据格式
+                                        async:false,
+                                        type: "post",//请求方式
+                                        success: function (data) {   //如何发送成功
+                                            console.log(data);
+                                            var jiabanxishu = data[0].jiabanxishu;
+                                            layui.use('form',function(){
+                                                var form = layui.form;
+                                                form.val('changeCoe', {
+                                                    "jiabanxishu": jiabanxishu // "name": "value"
+                                                });
+                                                form.render();
+                                            })
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+
+            }
+        });
+
+    }
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/em.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="layui/layui.all.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+    <script type="text/javascript" src="js/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+    <style>
+        .additable {
+            width: 455px;
+            height: 160px;
+            border: 1px solid #DDD;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .additable td {
+            border: 1px solid #DDD;
+            width: 85px;
+            padding-left: 10px;
+        }
+
+        .additable input {
+            border: none;
+            width: 250px;
+            height: 28px;
+            outline: none;
+            font-size: 16px;
+            text-align: left;
+        }
+        .buttonx {
+            display: inline-block;
+            background: #44ACFF;
+            border: 1px solid #44ACFF;
+            border-radius: .3em;
+            color: white;
+            width: 80px;
+            height: 32px;
+            font-size: 16px;
+            outline: none;
+            margin-top: 43px ;
+            line-height:32px;
+        }
+        .buttonx:hover{
+            background-color:#9B9B9B;
+            border-color: #9B9B9B;
+        }
+        .buttonx:active {
+            background-color: #E27635;
+            border-color: #E27635;
+        }
+
+    </style>
+</head>
+<body>
+<div class="tab-content tab-content-show" style="text-align: center;" id="yejiTable">
+    <form  style="text-align:center;margin-top: 20px;margin-left: 10px;" >
+        <table class="additable"   style="border-collapse: collapse; ">
+            <tr>
+                <td>工作任务<input  hidden type="text" th:value="${employeeId}" id="yemployeeId"></td>
+                <td><input type="text" id="addworkTasks" name="addworkTasks"></td>
+            </tr>
+            <tr>
+                <td>考核标准</td>
+                <td><input type="text" id="addaccess" name="addaccess"></td>
+            </tr>
+            <tr>
+                <td>考核周期</td>
+                <td><input type="text"  id="addcycle" name="addcycle" class="layui-input test-item"></td>
+            </tr>
+            <tr>
+                <td>权重</td>
+                <td><input type="text" id="addweights" name="addweights"></td>
+            </tr>
+        </table>
+    </form>
+    <input type="button" class="buttonx" value="提交标准" style="width:134px ;margin-left: 50px;margin-top: 20px;cursor:pointer"
+           onclick="emObj.insertPeAcc()" />
+    <script>
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#addcycle' //指定元素
+                ,type:'month'
+                ,zIndex: 99999999
+                ,trigger: 'click'
+            });
+        });
+    </script>
+</div>
+</body>
+</html>
+
+

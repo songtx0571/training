@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>杭州浩维管理平台</title>
+<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+<script type="text/javascript"  src="../js/week/jquery-3.2.1.js"></script>
+<script type="text/javascript"  src="../layer/layer.js"></script>
+<link rel="stylesheet" href="../css/Site.css"/>
+<script src="../js/week/treeView.js"></script>
+<script src="../hopetree/tree.js"></script>
+<script src="../hopetree/hope-tree.js"></script>
+<link href="../hopetree/tree.css" rel="stylesheet"/>
+<link href="../css/logo.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+	<script type="text/javascript" src="js/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<div id="top">
+		<div id="nav">
+			<img id="logo" src="../img/logo.png" width="64px" height="64px" /> 
+			<span id="text">杭州浩维管理平台</span>
+			<ul>
+				<li><input type="button" value="注销" id="login" class="button" onclick="window.document.location.href='/logout'"
+						   style="cursor: pointer;height: 24px;width: 80px;font-size:16px;background-color: #F5F4F5;color: #4A4A4A;margin-top: 29px;line-height: 24px"></li>
+				<li><a href="../Course" title="我的课程" target="_self" >我的课程</a></li>
+				<li><a href="/HomeController/home" title="日志和周报" target="_self" style="color:  #3D96D6">日志和周报</a></li>
+				<li id='li6'><a href="/pollingSystem" target="_self">运行引导</a></li>
+				<li id='li5'><a href="/Attendance" target="_self">考勤系统</a></li>
+				<li id='li4'><a href="/Employeemanage" target="_self">员工管理</a></li>
+				<li id='li3'><a href="/exammanage" target="_self">考试管理</a></li>
+				<li id='li1'><a href="/exercisemanage" target="_self" >题库管理</a></li>
+				<li id='li2'><a href="/Inform" target="_self">通知管理</a></li>
+				<li><a href="../index" title="首页" target="_self">我的首页</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id='tree' ></div>
+   	<iframe  id="contentView" class="contentView-narrow"></iframe>
+</body>
+</html>

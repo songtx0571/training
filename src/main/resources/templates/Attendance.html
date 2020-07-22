@@ -1,0 +1,303 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+    <script type="text/javascript" src="js/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="layui/layui.all.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script src="js/em.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/attendancemanage.js"></script>
+<!--    <script type="text/javascript" src="js/Attendance.js"></script>-->
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <title>考勤管理</title>
+    <style>
+        .layui-form-label2{float:left;display:block;padding:9px 15px;width:100px;font-weight:400;line-height:20px;text-align:right}
+        #banner{
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            outline: 0;
+            -webkit-overflow-scrolling: touch;
+            filter: alpha(opacity=20);
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+        }
+        #banner2{
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            outline: 0;
+            -webkit-overflow-scrolling: touch;
+            filter: alpha(opacity=20);
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+        }
+        .white_content1-labor {
+            display: none;
+            position: absolute;
+            border-radius: 4px;
+            top: 150px;
+            left: 550px;
+            width: 800px;
+            height: 680px;
+            background: #FFFFFF;
+            box-shadow: 0 0 8px 0 rgba(74, 144, 226, 0.80);
+            z-index: 1002;
+            overflow: none;
+        }
+    </style>
+    <link href="../css/logo.css" rel="stylesheet"/>
+<!--    <script type="text/javascript">-->
+<!--        function success()-->
+<!--        {-->
+<!--            window.alert("修改成功");-->
+<!--        }-->
+<!--        window.onload = function () {-->
+<!--            uinf.ccc();-->
+<!--            uinf.selectEm();-->
+<!--        }-->
+<!--    </script>-->
+</head>
+
+<body leftmargin=0 topmargin=0>
+<div id="top">
+    <div id="nav">
+        <img id="logo" src="img/logo.png" width="64px" height="64px" />
+        <span id="text">杭州浩维管理平台</span>
+        <ul>
+            <li><input type="button" value="注销" id="login" class="button" onclick="uinf.logout()"
+                       style="height: 24px;width: 80px;font-size:16px;background-color: #F5F4F5;color: #4A4A4A;margin-top: 29px;line-height: 24px"></li>
+            <li><a href="Course" title="我的课程" target="_self">我的课程</a></li>
+            <li><a href="/HomeController/home" title="日志和周报" target="_self">日志和周报</a></li>
+            <li id='li6'><a href="/pollingSystem" target="_self">运行引导</a></li>
+            <li id='li5'><a href="/Attendance" target="_self" style="color: #3D96D6">考勤系统</a></li>
+            <li id='li4'><a href="/Employeemanage" target="_self">员工管理</a></li>
+            <li id='li3'><a href="/exammanage" target="_self">考试管理</a></li>
+            <li id='li1'><a href="/exercisemanage" target="_self" >题库管理</a></li>
+            <li id='li2'><a href="/Inform" target="_self">通知管理</a></li>
+            <li><a href="index" title="首页" target="_self">首页</a></li>
+        </ul>
+    </div>
+</div>
+<div id="line"></div>
+<!--------头部------------>
+<div class="layui-tab" lay-filter="test">
+    <ul class="layui-tab-title">
+        <li class="layui-this" lay-id="11"><a onclick='showLaborRecord2()'  style="cursor: pointer;">员工工时</a></li>
+        <li lay-id="22"><a onclick='showLaborRecord3()'  style="cursor: pointer;">工时统计</a></li>
+        <li lay-id="33"><a onclick='showLaborRecord4()'  style="cursor: pointer;">员工考勤</a></li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <div id='achievementRecord-labor' class="white_content1-labor">
+                <div style="height: 100px;" class="layui-inline">
+
+                    <tr class="uSelect"  style="height:36px;width:150px;float: left">
+                        <td class="layui-form uSelect">
+                            <form class="layui-form layui-form-pane" action="">
+                                <div class="layui-form layui-form-item" >
+                                    <label class="layui-form-label">选择项目部</label>
+                                    <div class="layui-input-block" id="SelectP3" style="width: 200px!important;">
+                                        <select name="selectLaborProjectS3" id="selectLaborProjectS3" onclick="selectLaborProjectS3();"  lay-verify="required" lay-filter="selectLaborProjectS3" placeholder="请选择项目部"></select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item uSelect" id="chooseP" style="display: none">
+                                    <label class="layui-form-label">请选择员工</label>
+                                    <div class="layui-input-block" id="uSelect" style="width: 120px!important;">
+                                        <select name="department" id="department" lay-verify="required" lay-filter="department" placeholder="请选择员工"></select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="text" class="layui-input" placeholder="请选择月份" id="laborMonth" style="height:36px;width:150px;display: none;float: left">
+                                    <div id="resetLaborDay" style="height:36px;width:150px;float: left">
+                                        <input type="text" class="layui-input" placeholder="请选择日期" id="laborDay" style="height:36px;width:150px;display: none;float: left;">
+                                    </div>
+                                    <div style="height:36px;width:100px;float: left;"></div>
+                                    <div id="lTime1" style="height:36px;width:70px;float: left;font-size: inherit;font-family: inherit;font-weight: inherit;font-style: inherit;display:table-cell;display: none;vertical-align: middle;line-height: 36px" >工时数</div>
+                                    <div id="lTime2" style="height:36px;width:180px;float: left;display: none;">
+                                        <input type="text" class="layui-input" id="laborTime" style="height: 36px;width:100px;float: left;display: inline;"disabled>
+                                    </div>
+                                </div>
+                            </form></td>
+
+                    </tr>
+                </div>
+                <table id="labor" lay-filter="labor" style="margin-top: 60px!important;"></table>
+                <script type="text/html" id="zizeng-labor">
+                    {{d.LAY_TABLE_INDEX+1}}
+                </script>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <div>
+                <div class="layui-form layui-form-item" >
+                    <label class="layui-form-label">选择项目部</label>
+                    <div class="layui-input-block" id="SelectP" style="width: 200px!important;">
+                        <select name="selectLaborProjectS" id="selectLaborProjectS" onclick="selectLaborProjectS();"  lay-verify="required" lay-filter="selectLaborProjectS" placeholder="请选择项目部"></select>
+                    </div>
+                </div>
+<!--                <div class="uSelect"  style="height:36px;width:150px;float: left">-->
+<!--                    <div class="layui-form uSelect" style="height:36px;width:150px;float: left">-->
+<!--                        <form class="layui-form layui-form-pane" action="">-->
+<!--                            <div class="layui-form-item uSelect">-->
+<!--                                <div class="layui-input-block" id="SelectP" style="width: 120px!important;">请选择项目部-->
+<!--                                    <select name="selectLaborProjectS" id="selectLaborProjectS" onclick="selectLaborProjectS()" lay-verify="required" lay-filter="selectLaborProjectS" placeholder="请选择项目部"></select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </form></div>-->
+<!--                </div>-->
+                <div id="selectMonthS" style="height:36px;width:150px;float: left">
+                    <input type="text" class="layui-input" placeholder="请选择月份" id="laborMonthS" style="height:36px;width:150px;display:none;float: left;">
+                </div>
+            </div>
+            <div id="showTable">
+                <table class="layui-table" id="laborTimeS" lay-filter="demoEvent"></table>
+            </div>
+            <script type="text/html" id="zizengN">
+                {{d.LAY_TABLE_INDEX+1}}
+            </script>
+            <div id='achievementRecord-select' class="white_content1-labor">
+                <table id="labor-day" lay-filter="labor-day"></table>
+                <script type="text/html" id="zizeng-labor-day">
+                    {{d.LAY_TABLE_INDEX+1}}
+                </script>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <button class="layui-btn layui-btn-normal" onclick="showSum()">查看汇总</button>
+            <button class="layui-btn layui-btn-normal" onclick="showDetails()">查看详情</button>
+            <div id="details" style="display:none;">
+            <div>
+                <div id="selectPro" class="layui-form layui-form-item">
+                    <label class="layui-form-label">选择项目部</label>
+                    <div class="layui-input-block" id="SelectP2" style="width: 200px!important;">
+                        <select name="selectLaborProjectS2" id="selectLaborProjectS2" onclick="selectLaborProjectS2();"  lay-verify="required" lay-filter="selectLaborProjectS2" placeholder="请选择项目部"></select>
+                    </div>
+                </div>
+                <div id="selectPeople" class="layui-form layui-form-item" style="display: none">
+                    <label class="layui-form-label">请选择员工</label>
+                    <div class="layui-input-block" id="SelectPeopleByP" style="width: 200px!important;">
+                        <select name="selectPeopleByPro" id="selectPeopleByPro" onclick="selectPeopleByPro();"  lay-verify="required" lay-filter="selectPeopleByPro" placeholder="请选择员工"></select>
+                    </div>
+                </div>
+                <div id="selectMonthS2" style="height:36px;width:150px;float: left">
+                    <input type="text" class="layui-input" placeholder="请选择月份" id="laborMonthS2" style="height:36px;width:150px;display:none;float: left;">
+                </div>
+            </div>
+            <div id="showTable2">
+                <table class="layui-table" id="laborTimeS2" lay-filter="demoEvent"></table>
+            </div>
+            <script type="text/html" id="zizengN2">
+                {{d.LAY_TABLE_INDEX+1}}
+            </script>
+<!--            <div id='achievementRecord-select2' class="white_content1-labor">-->
+<!--                <table id="labor-day2" lay-filter="labor-day"></table>-->
+<!--                <script type="text/html" id="zizeng-labor-day2">-->
+<!--                    {{d.LAY_TABLE_INDEX+1}}-->
+<!--                </script>-->
+<!--            </div>-->
+        </div>
+            <div id="sum" style="display:none;">
+                <div>
+                    <div id="selectProD" class="layui-form layui-form-item">
+                        <label class="layui-form-label">选择项目部</label>
+                        <div class="layui-input-block" id="SelectP2D" style="width: 200px!important;">
+                            <select name="selectLaborProjectS2D" id="selectLaborProjectS2D" onclick="selectLaborProjectS2D();"  lay-verify="required" lay-filter="selectLaborProjectS2D" placeholder="请选择项目部"></select>
+                        </div>
+                    </div>
+
+                    <div id="selectMonthS2D" style="height:36px;width:150px;float: left">
+                        <input type="text" class="layui-input" placeholder="请选择月份" id="laborMonthS2D" style="height:36px;width:150px;display:none;float: left;">
+                    </div>
+                </div>
+                <div id="showTable2D" style="margin-top: 50px">
+                    <table class="layui-table layui-hide" id="laborTimeS2D" lay-filter="demoEventD"></table>
+                </div>
+                <script type="text/html" id="zizengN2D">
+                    {{d.LAY_TABLE_INDEX+1}}
+                </script>
+            </div>
+        </div>
+
+    </div>
+    <div id='banner' onclick='closeBanner2()'></div>
+<!--    <div id='banner2' onclick='closeBanner3()'></div>-->
+</div>
+<div id="centre">
+    <input id='UserName' type="hidden" th:value="${session.UserName}"/>
+    <input id='Name' type="hidden" th:value="${session.Name}"/>
+</div>
+
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use('element', function(){
+        var $ = layui.jquery
+            ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        //触发事件
+        var active = {
+            // tabAdd: function(){
+            //     //新增一个Tab项
+            //     element.tabAdd('demo', {
+            //         title: '新选项'+ (Math.random()*1000|0) //用于演示
+            //         ,content: '内容'+ (Math.random()*1000|0)
+            //         ,id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+            //     })
+            // },
+            // tabDelete: function(othis){
+            //     //删除指定Tab项
+            //     element.tabDelete('demo', '44'); //删除：“商品管理”
+            //
+            //
+            //     othis.addClass('layui-btn-disabled');
+            // },
+            // tabChange: function(){
+            //     //切换到指定Tab项
+            //     element.tabChange('demo', '22'); //切换到：用户管理
+            // }
+        };
+
+
+        //Hash地址的定位
+        var layid = location.hash.replace(/^#test=/, '');
+        element.tabChange('test', layid);
+
+        element.on('tab(test)', function(elem){
+            location.hash = 'test='+ $(this).attr('lay-id');
+        });
+    });
+</script>
+
+<!--------中间------------->
+
+
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<!-----------底部---------------->
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.treeWrap {
+    position: fixed;
+    overflow: auto;
+    width: 8%;
+    z-index: 20;
+    text-align: left;
+    box-sizing: border-box;
+    border-radius: 4px;
+    color: #2c2c2c;
+    font-size: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    height:calc(100% - 82px);
+}
+
+.treeWrap p {
+    line-height: 36px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 26px;
+}
+
+.treeWrap p:hover {
+    cursor: pointer;
+    color: rgba(0, 160, 233, 1);
+}
+
+.treeWrap .selected {
+    background-color: rgba(0, 160, 233, 1);
+    color: #fff;
+
+}
+
+.treeWrap .selected p:hover {
+    color: #fff;
+}
+
+.treeWrap img {
+    width: 9px;
+    height: 9px;
+    margin-right: 4px;
+}
+
+.largeTree{
+    width: 200px;
+    font-size: 30px; 
+}
+.largeTree p{
+    line-height: 70px;
+}
+.largeTree img{
+    width: 20px;
+    height: 20px;
+}
+
+#treeBackground-phone {
+    position: fixed;
+    z-index: 10;
+}
+
+.treeBackground-phone {
+    width: 400px;
+    top: 0px;
+    left: 0px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    height: 100%;
+    transition-duration: 200ms;
+}
+
+.assistive-touch {
+    position: fixed;
+    top: 40px;
+    left: -40px;
+    width: 114px;
+    height: 78px;
+    border-radius: 39px;
+    /* border-radius: 50%; */
+    box-shadow: 5px 5px 20px #888;
+    background-color: rgba(255, 255, 255, 1);
+    transition-duration: 200ms;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+}
+
+.assistive-touch-touched {
+    transition-duration: 0ms;
+    box-shadow: none;
+    opacity: 1;
+    transform: translate(6px,6px);
+}
+
+/* 鎸夐挳绌洪棽鐘舵�� */
+.assistive-touch-idle{
+    opacity: 0.2;
+}
+
+#treeBackground-pc {
+	margin-top:81px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    z-index: 10;
+	height:calc(100% - 82px);
+    width: 22px;
+}

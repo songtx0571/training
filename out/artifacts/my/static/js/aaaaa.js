@@ -1,0 +1,16 @@
+"<td><input type=\"text\" name=\"uUserName\"  id=\"uUserName\" value='"+emp.userName+"'></td>"+
+"<td><input type=\"text\" name=\"uName\"  id=\"uName\" value='"+emp.Name+"'></td>"+
+"<td><input type=\"text\" name=\"uIdnumber\"  id=\"uIdnumber\" value='"+emp.Idnumber+"'></td>"+
+"<td><input type=\"text\" name=\"uCard\"  id=\"uCard\" value='"+emp.Card+"'></td>"+
+"<td><input type=\"text\" name=\"uPhone\"  id=\"uPhone\" value='"+emp.Phone+"'></td>"+
+"<td><input type=\"text\" name=\"uCloshe\"  id=\"uCloshe\" value='"+emp.Closhe+"'></td>"+
+"<td><input type=\"text\" name=\"uHat\"  id=\"uHat\" value='"+emp.Hat+"'></td>"+
+"<td><input type=\"text\" name=\"uLaowupaiqian\"  id=\"uLaowupaiqian\" value='"+emp.Laowupaiqian+"'></td>"+
+"<td><input type=\"text\" name=\"uEducation\"  id=\"uEducation\" value='"+emp.Education+"'></td>"+
+"<td><input type=\"text\" name=\"uCredentials1\"  id=\"uCredentials1\" value='"+emp.Credentials1+"'></td>"+
+"<td><input type=\"text\" name=\"uCredentials2\"  id=\"uCredentials2\" value='"+emp.Credentials2+"'></td>"+
+"<td><input type=\"text\" name=\"uCredentials3\"  id=\"uCredentials3\" value='"+emp.Credentials3+"'></td>"+
+"<td><input type=\"text\" name=\"uPost\"  id=\"uPost\" value='"+emp.Post+"'></td>"+
+"<td><input type=\"text\" name=\"udate\"  id=\"udate\" value='"+emp.date+"'></td>"+
+"<td><input type=\"text\" name=\"uState\"  id=\"uState\" value='"+emp.State+"'></td>"+
+"<td><input type=\"text\" name=\"uDepartment\"  id=\"uDepartment\" value='"+emp.Department+"'></td>"
