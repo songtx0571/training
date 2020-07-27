@@ -462,7 +462,7 @@ a, ul, li, div {
 #centre {
 	margin: 0 auto;
 	width: 1200px;
-	height: 580px;
+	height: 665px;
 }
 
 #centreLeft {
@@ -526,18 +526,21 @@ a, ul, li, div {
 #link {
 	width: 340px;
 	height: 66px;
+	padding-left: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 #link>ul>li {
 	float: right;
-	margin-left: 24px;
-	line-height: 26px;
-	margin-right: 24px
+	line-height: 60px;
+	margin-right: 17px;
 }
 
 #link>ul>li>a {
 	color: #FFF;
-	font-weight: 900px;
+	font-weight: 900;
 	font-size: 16px;
 	color: #4A90E2;
 	text-align: left;
@@ -721,10 +724,36 @@ a, ul, li, div {
 	line-height: 48px;
 	width:120px;
 }
+	body{
+		padding: 0px 10px;
+		box-sizing: border-box;
+	}
+	#top {
+		width: 1200px;
+		height: auto;
+		margin: 0 auto;
+		color: #F5F4F5;
+	}
+	.div_logo{
+		width: 25%;
+		float: left;
+        /*padding-left: 20px;*/
+        /*box-sizing: border-box;*/
+	}
+	#nav>ul{
+		float: left;
+		width: 75%;
+	}
+	#nav>ul>li {
+		float: right;
+		margin-left: 25px;
+		line-height: 80px;
+		/*margin-right: 8px;*/
+	}
 
 </style>
 
-<link href="../css/logo.css" rel="stylesheet"/>
+<link href="../static/css/logo.css" rel="stylesheet" />
 <script type="text/javascript">
 	function success()
 	{
@@ -740,8 +769,10 @@ a, ul, li, div {
 <body leftmargin=0 topmargin=0>
 	<div id="top">
 		<div id="nav">
-			<img id="logo" src="img/logo.png" width="64px" height="64px" />
-			<span id="text">杭州浩维管理平台</span>
+			<div class="div_logo">
+				<img id="logo" src="img/logo.png" width="64px" height="64px" />
+				<span id="text" style="font-size: 24px;color: #4A4A4A;line-height: 80px;">杭州浩维管理平台</span>
+			</div>
 			<ul>
 				<li><input type="button" value="注销" id="login" class="button" onclick="uinf.logout()"
 				style="height: 24px;width: 80px;font-size:16px;background-color: #F5F4F5;color: #4A4A4A;margin-top: 29px;line-height: 24px"></li>
@@ -794,6 +825,7 @@ a, ul, li, div {
 			</div>
 			<div id="info">学分将于学习课程的第二天上午10点更新。</div>
 		</div>
+        <div style="clear: both"></div>
 	</div>
 	<!--------中间------------->
 
