@@ -9,43 +9,79 @@
 	<script type="text/javascript" src="js/easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
 <style>
+/*start修改*/
 body {
 	margin: 0;
-	width: 1920px;
-	height: 971px;
-}
-
-.whole {
-	width: 1920px;
-	height: 971px;
 	background: url("img/bcg for loading.png") no-repeat;
-	backgroud-size: 1920px 971px;
+	background-size: 100% 100%;
 }
-
-.white_content {
-	position: absolute;
-	top: 232px;
-	left: 735px;
-	width: 430px;
-	height: 430px;
+.whole {
+	width: 100vw;
+	height: 100vh;
+}
+.white_content{
 	background-color: white;
 	z-index: 1001;
 	border-radius: 4px;
 	padding: 20px;
+	box-sizing: border-box;
+	margin: 25% 30%;
 }
-
+/* 当浏览器的可视区域小于980px */
+@media screen and ( max-width: 990px ) {
+	.white_content {
+		width: 45vw;
+		height: 40vw;
+	}
+}
+/* 视窗宽度大于等于 990px 且小于等于 1200px */
+@media screen and (min-width: 990px) and (max-width: 1200px){
+	.white_content {
+		width: 36vw;
+		height: 30vw;
+		margin: 25% 34%;
+	}
+}
+/* 视窗宽度大于等于 1200px 且小于等于 1470px  */
+@media screen and ( min-width: 1200px ) and (max-width: 1470px) {
+	.white_content {
+		width: 36vw;
+		height: 25vw;
+		margin: 25% 34%;
+	}
+}
+/* 视窗宽度大于等于 1470px 且小于等于 2100px */
+@media screen and (min-width: 1470px)  and (max-width: 1700px) {
+	.white_content {
+		width: 30vw;
+		height: 20vw;
+		margin: 25% 34%;
+	}
+}
+/* 视窗宽度大于等于 1700px  */
+@media screen and ( min-width: 1700px ){
+	.white_content {
+		width: 36vw;
+		height: 18vw;
+		margin: 25% 34%;
+	}
+}
+/*end修改*/
 * {
 	padding: 0px;
 	margin: 0px;
 }
 
+/*start修改*/
 #tab {
 	width: 320px;
 	padding: 5px;
 	height: 250px;
 	margin: 100px 50px;
 	text-align: center;
+	margin: 0 auto;
 }
+/*end修改*/
 
 #tab ul {
 	list-style: none;
@@ -74,14 +110,15 @@ body {
 #tab ul li.on {
 	border-bottom: 2px solid #4A4A4A;
 }
-
+/*start修改*/
 #tab div {
-	height: 400px;
+	height: 260px;
 	width: 300px;
 	line-height: 24px;
 	border-top: none;
 	padding: 10px;
 }
+/*end修改*/
 
 .hide {
 	display: none;
